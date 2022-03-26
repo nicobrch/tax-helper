@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class GUI implements ActionListener {
 
-    private int count = 0;
+    private int count = 1;
     private JLabel label;
     private JFrame frame;
     private JPanel panel;
