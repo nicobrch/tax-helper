@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class GUI implements ActionListener {
 
-    private int count = 1;
+    private int count = 0;
     private JLabel label;
     private JFrame frame;
     private JPanel panel;
@@ -13,9 +13,9 @@ public class GUI implements ActionListener {
     public GUI() {
         frame = new JFrame();
         panel = new JPanel();
-        JButton button = new JButton("SIUU");
+        JButton button = new JButton("1000 clicks para que el Maxi consiga pareja");
         button.addActionListener(this);
-        label = new JLabel("Cuantos SIUU: 0");
+        label = new JLabel("Vamos! Ayuda a Maxi!: 0");
 
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new GridLayout(0, 1));
