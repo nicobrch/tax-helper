@@ -1,15 +1,17 @@
-import javax.print.DocFlavor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Table extends JFrame implements ActionListener {
+public class Interfaz extends JFrame implements ActionListener {
     
-    private JTable tabla;
+    private JTable table;
+    private JScrollPane scrollPaneTable;
 
-    public Table() {
+    public Interfaz() {
         setLayout(new FlowLayout());
+
+        // Tabla
 
         String[] nombreColumnas = {"Mes", "Sueldo Imponible", "Impuestos Retenidos", "Honorarios Brutos", "Impuestos Retenidos"};
         Object[][] datos = {
@@ -27,22 +29,34 @@ public class Table extends JFrame implements ActionListener {
                 {"Diciembre", "", "", "", ""},
         };
 
-        tabla = new JTable(datos, nombreColumnas){
+        table = new JTable(datos, nombreColumnas){
             @Override
             public boolean isCellEditable(int row, int column){
                 return column != 0;
             }
         };
 
-        tabla.setPreferredScrollableViewportSize(new Dimension(500, 192));
-        tabla.setFillsViewportHeight(true);
+        table.setPreferredScrollableViewportSize(new Dimension(500, 192));
+        table.setFillsViewportHeight(true);
 
-        JScrollPane scrollPane = new JScrollPane(tabla);
-        add(scrollPane);
+        scrollPaneTable = new JScrollPane(table);
+        add(scrollPaneTable);
+
+        // Botones
+
+        JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
+        botonLimpiarTabla.setSize(320, 300);
+        JScrollPane scrollPaneBotonLimpiarTabla = new JScrollPane(botonLimpiarTabla);
+        add(scrollPaneBotonLimpiarTabla);
+
+        JButton botonEjecutar = new JButton("Ejecutar Programa");
+        botonEjecutar.setSize(320, 300);
+        JScrollPane scrollPaneBotonEjecutar = new JScrollPane(botonEjecutar);
+        add(scrollPaneBotonEjecutar);
     }
 
     public static void main (String[] args){
-        Table gui = new Table();
+        Interfaz gui = new Interfaz();
         gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
         gui.setSize(520, 300);
         gui.setVisible(true);

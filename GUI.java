@@ -30,7 +30,7 @@ public class GUI implements ActionListener {
     }
 
     public static void main (String[] args){
-        new Table();
+        new Interfaz();
     }
 
     @Override
