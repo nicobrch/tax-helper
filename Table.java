@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI implements ActionListener {
+public class Table implements ActionListener {
 
     private int count = 0;
     private JLabel label;
     private JFrame frame;
     private JPanel panel;
 
-    public GUI() {
+    public Table() {
         frame = new JFrame();
         panel = new JPanel();
         JButton button = new JButton("1000 clicks para que el Maxi consiga pareja");
