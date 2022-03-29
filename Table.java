@@ -1,41 +1,55 @@
+import javax.print.DocFlavor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Table implements ActionListener {
-
-    private int count = 0;
-    private JLabel label;
-    private JFrame frame;
-    private JPanel panel;
+public class Table extends JFrame implements ActionListener {
+    
+    private JTable tabla;
 
     public Table() {
-        frame = new JFrame();
-        panel = new JPanel();
-        JButton button = new JButton("1000 clicks para que el Maxi consiga pareja");
-        button.addActionListener(this);
-        label = new JLabel("Vamos! Ayuda a Maxi!: 0");
+        setLayout(new FlowLayout());
 
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(0, 1));
-        panel.add(button);
-        panel.add(label);
+        String[] nombreColumnas = {"Mes", "Sueldo Imponible", "Impuestos Retenidos", "Honorarios Brutos", "Impuestos Retenidos"};
+        Object[][] datos = {
+                {"Enero", "", "", "", ""},
+                {"Febrero", "", "", "", ""},
+                {"Marzo", "", "", "", ""},
+                {"Abril", "", "", "", ""},
+                {"Mayo", "", "", "", ""},
+                {"Junio", "", "", "", ""},
+                {"Julio", "", "", "", ""},
+                {"Agosto", "", "", "", ""},
+                {"Septiembre", "", "", "", ""},
+                {"Octubre", "", "", "", ""},
+                {"Noviembre", "", "", "", ""},
+                {"Diciembre", "", "", "", ""},
+        };
 
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Interfaz");
-        frame.pack();
-        frame.setVisible(true);
+        tabla = new JTable(datos, nombreColumnas){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return column != 0;
+            }
+        };
+
+        tabla.setPreferredScrollableViewportSize(new Dimension(500, 192));
+        tabla.setFillsViewportHeight(true);
+
+        JScrollPane scrollPane = new JScrollPane(tabla);
+        add(scrollPane);
     }
 
     public static void main (String[] args){
-        new Table();
+        Table gui = new Table();
+        gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        gui.setSize(520, 300);
+        gui.setVisible(true);
+        gui.setTitle("Tax Helper");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        count++;
-        label.setText("Cuantos SIUU: " + count);
     }
 }
