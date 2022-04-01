@@ -5,12 +5,13 @@ import java.awt.event.ActionListener;
 
 public class Interfaz extends JFrame implements ActionListener {
 
+    private Tabla tab;
     private JTable table;
     private JScrollPane scrollPaneTable;
 
     public Interfaz() {
         setLayout(new FlowLayout());
-        Tabla tab = new Tabla();
+        tab = new Tabla();
         this.table = tab.getTable();
 
         // Añadimos la tabla al panel
@@ -28,6 +29,7 @@ public class Interfaz extends JFrame implements ActionListener {
         JButton botonEjecutar = new JButton("Ejecutar Programa");
         botonEjecutar.setSize(320, 300);
         JScrollPane scrollPaneBotonEjecutar = new JScrollPane(botonEjecutar);
+        botonEjecutar.addActionListener(this);
         add(scrollPaneBotonEjecutar);
     }
 
@@ -41,5 +43,6 @@ public class Interfaz extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(this.tab.getColumnValues(1));
     }
 }

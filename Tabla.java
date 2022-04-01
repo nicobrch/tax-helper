@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 public class Tabla implements TableModelListener {
 
@@ -44,20 +45,38 @@ public class Tabla implements TableModelListener {
         table.getModel().addTableModelListener(this);
     }
 
-    private boolean isNumeric(Object dato){
-        if (dato == null) return false;
+    public ArrayList<Double> getColumnValues(int column){
+        //Las columnas son 1, 2, 3, 4
+        ArrayList<Double> datos = new ArrayList<>();
+        for (int i = 0; i < 12; i++){
+            if (!isEmpty(this.table.getValueAt(i, column))){
+                datos.add(Double.parseDouble(String.valueOf(this.table.getValueAt(i, column))));
+            } else {
+                datos.add(-1.0); //La celda esta vacía
+            }
+        }
+        return datos;
+    }
+
+    private boolean isEmpty(Object obj){
+        return obj == "";
+    }
+
+    private boolean isNumeric(Object obj){
+        if (obj == null) return false;
         try {
-            Double.parseDouble(String.valueOf(dato));
+            Double.parseDouble(String.valueOf(obj));
             return true;
         } catch (NumberFormatException e){
             return false;
         }
     }
 
-    private boolean isNegative(Object dato){
-        if (dato == null) return false;
+    private boolean isNegative(Object obj){
+        if (obj == null) return false;
         try {
-            return (Double.parseDouble(String.valueOf(dato)) < 0);
+            Double.parseDouble(String.valueOf(obj));
+            return (Double.parseDouble(String.valueOf(obj)) < 0);
         } catch (NumberFormatException e){
             return false;
         }
