@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Tabla implements TableModelListener {
@@ -23,8 +24,7 @@ public class Tabla implements TableModelListener {
                 {"Septiembre", "", "", "", ""},
                 {"Octubre", "", "", "", ""},
                 {"Noviembre", "", "", "", ""},
-                {"Diciembre", "", "", "", ""},
-                {"Total", "", "", "", ""}
+                {"Diciembre", "", "", "", ""}
         };
 
         //Hacemos que la primera columna (mes) no se pueda editar
@@ -42,20 +42,25 @@ public class Tabla implements TableModelListener {
             }
         };
 
+        //Evitamos edicion de la tabla
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
+
         table.getModel().addTableModelListener(this);
     }
 
-    public ArrayList<Double> getColumnValues(int column){
-        //Las columnas son 1, 2, 3, 4
-        ArrayList<Double> datos = new ArrayList<>();
+    public ArrayList<ArrayList<Double>> getTableValues(int column){
+        ArrayList<ArrayList<Double>> values = new ArrayList<>();
+        ArrayList<Double> rowValues = new ArrayList<>();
+
         for (int i = 0; i < 12; i++){
-            if (!isEmpty(this.table.getValueAt(i, column))){
-                datos.add(Double.parseDouble(String.valueOf(this.table.getValueAt(i, column))));
-            } else {
-                datos.add(-1.0); //La celda esta vacía
+            for (int j = 1; j < 5; j++){
+                rowValues.add(Double.parseDouble(String.valueOf(this.table.getValueAt(i,j))));
             }
+            values.add(rowValues);
         }
-        return datos;
+
+        return values;
     }
 
     private boolean isEmpty(Object obj){

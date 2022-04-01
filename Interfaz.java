@@ -36,13 +36,12 @@ public class Interfaz extends JFrame implements ActionListener {
     public static void main (String[] args){
         Interfaz gui = new Interfaz();
         gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        gui.setSize(520, 300);
+        gui.setSize(600, 350);
         gui.setVisible(true);
         gui.setTitle("Tax Helper");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(this.tab.getColumnValues(1));
     }
 }
