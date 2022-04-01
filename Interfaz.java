@@ -4,44 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Interfaz extends JFrame implements ActionListener {
-    
+
     private JTable table;
     private JScrollPane scrollPaneTable;
 
     public Interfaz() {
         setLayout(new FlowLayout());
+        Tabla tab = new Tabla();
+        this.table = tab.getTable();
 
-        // Tabla
-
-        String[] nombreColumnas = {"Mes", "Sueldo Imponible", "Impuestos Retenidos", "Honorarios Brutos", "Impuestos Retenidos"};
-        Object[][] datos = {
-                {"Enero", "", "", "", ""},
-                {"Febrero", "", "", "", ""},
-                {"Marzo", "", "", "", ""},
-                {"Abril", "", "", "", ""},
-                {"Mayo", "", "", "", ""},
-                {"Junio", "", "", "", ""},
-                {"Julio", "", "", "", ""},
-                {"Agosto", "", "", "", ""},
-                {"Septiembre", "", "", "", ""},
-                {"Octubre", "", "", "", ""},
-                {"Noviembre", "", "", "", ""},
-                {"Diciembre", "", "", "", ""},
-        };
-
-        table = new JTable(datos, nombreColumnas){
-            @Override
-            public boolean isCellEditable(int row, int column){
-                return column != 0;
-            }
-        };
-
+        // Añadimos la tabla al panel
         table.setPreferredScrollableViewportSize(new Dimension(500, 192));
         table.setFillsViewportHeight(true);
-
         scrollPaneTable = new JScrollPane(table);
         add(scrollPaneTable);
-
         // Botones
 
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
