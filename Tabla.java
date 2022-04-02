@@ -52,7 +52,6 @@ public class Tabla implements TableModelListener {
         table.getModel().addTableModelListener(this);
     }
 
-
     public Long totalSueldoImponible(Long[][] matrix){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
@@ -61,7 +60,6 @@ public class Tabla implements TableModelListener {
         return suma;
     }
 
-
     public Long totalHonorarios(Long[][] matrix){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
@@ -69,7 +67,6 @@ public class Tabla implements TableModelListener {
         }
         return suma;
     }
-
 
     public Long totalImpuestos(Long[][] matrix){
         long suma = 0L;
@@ -86,16 +83,13 @@ public class Tabla implements TableModelListener {
         }
     }
 
-
     public Double gastosPresuntos(Long totalHonorarios){
         return (double)totalHonorarios * 0.3;
     }
 
-
     public Double rentaAnual(Long sueldoImponible, Long totalHonorarios, Double gastosPresuntos){
         return (double)sueldoImponible + (double)totalHonorarios - gastosPresuntos;
     }
-
 
     public Long[][] getTableValues(){
         Long[][] matrix = new Long[12][3];
@@ -111,13 +105,11 @@ public class Tabla implements TableModelListener {
         return matrix;
     }
 
-
     public void imprimirMatriz(Long[][] matrix){
         for (int i = 0; i < 12; i++){
             System.out.println(matrix[i][0] + " " + matrix[i][1] + " " + matrix[i][2]);
         }
     }
-
 
     public void setRandomValuesOnTable(){
         for (int i = 0; i < 12; i++){
@@ -128,11 +120,9 @@ public class Tabla implements TableModelListener {
         }
     }
 
-
     private boolean isEmpty(Object obj){
         return obj == "";
     }
-
 
     private boolean isNumeric(Object obj){
         if (obj == null) return false;
@@ -144,7 +134,6 @@ public class Tabla implements TableModelListener {
         }
     }
 
-
     private boolean isNegative(Object obj){
         if (isNumeric(obj)){
             return (Double.parseDouble(String.valueOf(obj)) < 0);
@@ -152,12 +141,8 @@ public class Tabla implements TableModelListener {
         return false;
     }
 
-
     @Override
-    public void tableChanged(TableModelEvent e) {
-
-    }
-
+    public void tableChanged(TableModelEvent e) { }
 
     public JTable getTable() {
         return table;

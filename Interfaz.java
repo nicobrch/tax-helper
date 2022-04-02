@@ -24,6 +24,7 @@ public class Interfaz extends JFrame implements ActionListener {
         gui.setVisible(true);
     }
 
+    // Panel con Instrucciones
     public void panelInicial() {
         JPanel panel1 = new JPanel();
         this.getContentPane().add(panel1);
@@ -59,6 +60,7 @@ public class Interfaz extends JFrame implements ActionListener {
         botonOk.addActionListener(nextPanel);
     }
 
+    // Panel con Tabla y Botones
     public void panelTabla() {
         JPanel panel2 = new JPanel();
         this.getContentPane().add(panel2);
@@ -111,6 +113,7 @@ public class Interfaz extends JFrame implements ActionListener {
 
     }
 
+    // Panel con Mensaje sobre Devolucion o Pago de Impuestos
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         JTextArea detalles = new JTextArea();
@@ -127,6 +130,7 @@ public class Interfaz extends JFrame implements ActionListener {
         panel3.add(detalles);
     }
 
+    // Funcion Boton Limpiar
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
