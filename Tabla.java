@@ -79,6 +79,13 @@ public class Tabla implements TableModelListener {
         return suma;
     }
 
+    public void setImpuetoHonorario(){
+        for (int i = 0 ; i < 12 ; i++){
+            double honorario = Double.parseDouble(String.valueOf(table.getValueAt(i,3)));
+            table.getModel().setValueAt(honorario*0.1225,i,4);
+        }
+    }
+
 
     public Double gastosPresuntos(Long totalHonorarios){
         return (double)totalHonorarios * 0.3;

@@ -45,7 +45,8 @@ public class Interfaz extends JFrame implements ActionListener {
         botonEjecutar.addActionListener(e -> {
             Long[][] matrix = tab.getTableValues();
             tab.imprimirMatriz(matrix);
-            System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
+            //System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
+            tab.setImpuetoHonorario();
         });
     }
 
