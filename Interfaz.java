@@ -1,7 +1,9 @@
 import javax.swing.*;
+import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 public class Interfaz extends JFrame implements ActionListener {
 
@@ -15,7 +17,7 @@ public class Interfaz extends JFrame implements ActionListener {
         this.table = tab.getTable();
 
         // Añadimos la tabla al panel
-        table.setPreferredScrollableViewportSize(new Dimension(500, 192));
+        table.setPreferredScrollableViewportSize(new Dimension(600, 192));
         table.setFillsViewportHeight(true);
         scrollPaneTable = new JScrollPane(table);
         add(scrollPaneTable);
@@ -23,8 +25,11 @@ public class Interfaz extends JFrame implements ActionListener {
 
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);
+        botonLimpiarTabla.addActionListener(this);
+        botonLimpiarTabla.setActionCommand("Limpiar");
         JScrollPane scrollPaneBotonLimpiarTabla = new JScrollPane(botonLimpiarTabla);
         add(scrollPaneBotonLimpiarTabla);
+
 
         JButton botonEjecutar = new JButton("Ejecutar Programa");
         botonEjecutar.setSize(320, 300);
@@ -43,5 +48,16 @@ public class Interfaz extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        if (action.equals("Limpiar")){
+            for (int i = 1; i < 5; i++){
+                for (int j = 0; j < 12 ; j++){
+                    table.getModel().setValueAt("",j,i);
+                }
+            }
+
+
+
+        }
     }
 }
