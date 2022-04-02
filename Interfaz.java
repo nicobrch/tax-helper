@@ -75,6 +75,11 @@ public class Interfaz extends JFrame implements ActionListener {
 
         // Botones
 
+        JButton botonTest = new JButton("Test");
+        botonTest.setSize(320, 300);
+        botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
+        panel2.add(botonTest);
+
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);
         botonLimpiarTabla.addActionListener(this);
