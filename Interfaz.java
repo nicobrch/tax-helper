@@ -42,8 +42,8 @@ public class Interfaz extends JFrame implements ActionListener {
             "\n2) Si no conoce toda la informacion, favor completar solo con la informacion oficial que tenga en su conocimiento." +
             "\n3) Luego de tener todo, seleccione el boton 'Ejecutar Programa'. "
         );
-        panel1.add(descripcion);
         descripcion.setVisible(true);
+        panel1.add(descripcion);
 
         botonOk = new JButton("Ok!");
         botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -102,6 +102,11 @@ public class Interfaz extends JFrame implements ActionListener {
             tab.setImpuetoHonorario();
         });*/
 
+        // Boton de Prueba para saber si esta funcionando la ultima ventana(la que indica si paga o le devuelven impuestos) //
+        botonOk = new JButton("Respuesta");
+        botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        panel2.add(botonOk);
+
         ActionListener finalpanel = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,21 +115,23 @@ public class Interfaz extends JFrame implements ActionListener {
                 revalidate();
             }
         };
-
+        botonOk.addActionListener(finalpanel);
     }
 
-    // Panel con Mensaje sobre Devolucion o Pago de Impuestos
+    // Panel con Mensaje sobre Devolucion o Pago de Impuestos.
     public void panelFinal() {
         JPanel panel3 = new JPanel();
+        this.getContentPane().add(panel3);
+
         JTextArea detalles = new JTextArea();
         detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
         detalles.setEditable(false);
         detalles.setLineWrap(false);
         detalles.setText(
-                "TAX-HELPER." +
-                        "\nTe corresponde DEVOLUCION de impuestos." +
-                        "\nSegun la tabla del calculo del impuesto global del año {año} y los datos de la tabla rellenados hasta el mes {mes}," +
-                        "se ha proyectado {proyeccion}, por lo cual le corresponde una devolucion aproximada de {devolucion}"
+        "TAX-HELPER." +
+        "\nTe corresponde DEVOLUCION de impuestos." +
+        "\nSegun la tabla del calculo del impuesto global del año {año} y los datos de la tabla rellenados hasta el mes {mes}," +
+        "se ha proyectado {proyeccion}, por lo cual le corresponde una devolucion aproximada de {devolucion}"
         );
         detalles.setVisible(true);
         panel3.add(detalles);
