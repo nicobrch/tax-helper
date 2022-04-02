@@ -33,13 +33,13 @@ public class Interfaz extends JFrame implements ActionListener {
         descripcion.setEditable(false);
         descripcion.setLineWrap(false);
         descripcion.setText(
-                "Bienvenido al programa Tax-Help. \nEste programa tiene como funcionalidad indicarle en base " +
-                        "a unos ciertos datos que vera a continuacion, si le corresponde pago o devolucion de impuestos." +
+            "Bienvenido al programa Tax-Help. \nEste programa tiene como funcionalidad indicarle en base " +
+            "a unos ciertos datos que vera a continuacion, si le corresponde pago o devolucion de impuestos." +
 
-                        "\nFavor, seguir las siguientes indicaciones:" +
-                        "\n1) En caso de que no se encuentre trabajando, rellenar con '0'." +
-                        "\n2) Si no conoce toda la informacion, favor completar solo con la informacion oficial que tenga en su conocimiento." +
-                        "\n3) Luego de tener todo, seleccione el boton 'Ejecutar Programa'. "
+            "\nFavor, seguir las siguientes indicaciones:" +
+            "\n1) En caso de que no se encuentre trabajando, rellenar con '0'." +
+            "\n2) Si no conoce toda la informacion, favor completar solo con la informacion oficial que tenga en su conocimiento." +
+            "\n3) Luego de tener todo, seleccione el boton 'Ejecutar Programa'. "
         );
         panel1.add(descripcion);
         descripcion.setVisible(true);
@@ -62,7 +62,7 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelTabla() {
         JPanel panel2 = new JPanel();
         this.getContentPane().add(panel2);
-        panel2.setLayout(null);
+
         tab = new Tabla();
         this.table = tab.getTable();
 
@@ -71,26 +71,16 @@ public class Interfaz extends JFrame implements ActionListener {
         table.setFillsViewportHeight(true);
         scrollPaneTable = new JScrollPane(table);
         scrollPaneTable.setVisible(true);
-        add(scrollPaneTable);
-        setVisible(true);
-
-                        // Botones //
-        /*
-        JButton botonTest = new JButton("Test");
-        panel2.add(botonTest);
-        JScrollPane scrollPaneBotonTest = new JScrollPane(botonTest);
-        add(scrollPaneBotonTest);
-        botonTest.addActionListener(e -> tab.setRandomValuesOnTable());*/
+        panel2.add(scrollPaneTable);
 
         // Botones
-        /*
+
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);
         botonLimpiarTabla.addActionListener(this);
         botonLimpiarTabla.setActionCommand("Limpiar");
-        JScrollPane scrollPaneBotonLimpiarTabla = new JScrollPane(botonLimpiarTabla);
-        add(scrollPaneBotonLimpiarTabla);
-        */
+        botonLimpiarTabla.setFont(new Font("Times New Roman", Font.BOLD,12));
+        panel2.add(botonLimpiarTabla);
 
         /*
         JButton botonEjecutar = new JButton("Ejecutar Programa");
