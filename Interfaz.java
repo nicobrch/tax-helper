@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Interfaz extends JFrame implements ActionListener {
 
@@ -13,7 +13,7 @@ public class Interfaz extends JFrame implements ActionListener {
 
     public Interfaz() {
         setTitle("Tax-Helper");
-        setSize(550, 300);
+        setSize(650, 300);
 
         panelInicial();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -21,22 +21,7 @@ public class Interfaz extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         Interfaz gui = new Interfaz();
-        gui.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        gui.setSize(600, 350);
         gui.setVisible(true);
-        gui.setTitle("Tax Helper");
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String action = e.getActionCommand();
-        if (action.equals("Limpiar")) {
-            for (int i = 1; i < 5; i++) {
-                for (int j = 0; j < 12; j++) {
-                    table.getModel().setValueAt("", j, i);
-                }
-            }
-        }
     }
 
     public void panelInicial() {
@@ -76,7 +61,8 @@ public class Interfaz extends JFrame implements ActionListener {
 
     public void panelTabla() {
         JPanel panel2 = new JPanel();
-        // setLayout( new FlowLayout() );
+        this.getContentPane().add(panel2);
+        panel2.setLayout(null);
         tab = new Tabla();
         this.table = tab.getTable();
 
@@ -85,22 +71,28 @@ public class Interfaz extends JFrame implements ActionListener {
         table.setFillsViewportHeight(true);
         scrollPaneTable = new JScrollPane(table);
         scrollPaneTable.setVisible(true);
-        panel2.add(scrollPaneTable);
+        add(scrollPaneTable);
+        setVisible(true);
 
+                        // Botones //
+        /*
         JButton botonTest = new JButton("Test");
-        botonTest.setSize(320, 300);
+        panel2.add(botonTest);
         JScrollPane scrollPaneBotonTest = new JScrollPane(botonTest);
         add(scrollPaneBotonTest);
-        botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
+        botonTest.addActionListener(e -> tab.setRandomValuesOnTable());*/
 
         // Botones
+        /*
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);
         botonLimpiarTabla.addActionListener(this);
         botonLimpiarTabla.setActionCommand("Limpiar");
         JScrollPane scrollPaneBotonLimpiarTabla = new JScrollPane(botonLimpiarTabla);
         add(scrollPaneBotonLimpiarTabla);
+        */
 
+        /*
         JButton botonEjecutar = new JButton("Ejecutar Programa");
         botonEjecutar.setSize(320, 300);
         JScrollPane scrollPaneBotonEjecutar = new JScrollPane(botonEjecutar);
@@ -111,7 +103,7 @@ public class Interfaz extends JFrame implements ActionListener {
             tab.imprimirMatriz(matrix);
             //System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
             tab.setImpuetoHonorario();
-        });
+        });*/
 
         ActionListener finalpanel = new ActionListener() {
             @Override
@@ -139,4 +131,17 @@ public class Interfaz extends JFrame implements ActionListener {
         detalles.setVisible(true);
         panel3.add(detalles);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+        if (action.equals("Limpiar")) {
+            for (int i = 1; i < 5; i++) {
+                for (int j = 0; j < 12; j++) {
+                    table.getModel().setValueAt("", j, i);
+                }
+            }
+        }
+    }
+
 }
