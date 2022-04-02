@@ -34,7 +34,7 @@ public class Tabla implements TableModelListener {
         this.table = new JTable(datos, nombreColumnas){
             @Override
             public boolean isCellEditable(int row, int column){
-                return column != 0;
+                return column != 0 && column !=4;
             }
 
             @Override
@@ -98,10 +98,10 @@ public class Tabla implements TableModelListener {
 
 
     public Long[][] getTableValues(){
-        Long[][] matrix = new Long[12][4];
+        Long[][] matrix = new Long[12][3];
 
         for (int i = 0; i < 12; i++){
-            for (int j = 0; j < 4; j++){
+            for (int j = 0; j < 3; j++){
                 if (!isEmpty(this.table.getValueAt(i, j))){
                     matrix[i][j] = (Long.parseLong(String.valueOf(this.table.getValueAt(i,j+1))));
                 }
@@ -114,14 +114,14 @@ public class Tabla implements TableModelListener {
 
     public void imprimirMatriz(Long[][] matrix){
         for (int i = 0; i < 12; i++){
-            System.out.println(matrix[i][0] + " " + matrix[i][1] + " " + matrix[i][2] + " " + matrix[i][3]);
+            System.out.println(matrix[i][0] + " " + matrix[i][1] + " " + matrix[i][2]);
         }
     }
 
 
     public void setRandomValuesOnTable(){
         for (int i = 0; i < 12; i++){
-            for (int j = 1; j < 5; j++){
+            for (int j = 1; j < 4; j++){
                 Long v = rand.nextLong(9999999);
                 this.table.setValueAt(v, i, j);
             }
