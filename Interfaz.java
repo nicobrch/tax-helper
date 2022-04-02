@@ -32,6 +32,8 @@ public class Interfaz extends JFrame implements ActionListener {
 
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);
+        botonLimpiarTabla.addActionListener(this);
+        botonLimpiarTabla.setActionCommand("Limpiar");
         JScrollPane scrollPaneBotonLimpiarTabla = new JScrollPane(botonLimpiarTabla);
         add(scrollPaneBotonLimpiarTabla);
 
@@ -57,6 +59,13 @@ public class Interfaz extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String action = e.getActionCommand();
+        if (action.equals("Limpiar")){
+            for (int i = 1; i < 5; i++){
+                for (int j = 0; j < 12 ; j++){
+                    table.getModel().setValueAt("",j,i);
+                }
+            }
+        }
     }
 }
