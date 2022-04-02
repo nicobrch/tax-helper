@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Interfaz extends JFrame implements ActionListener {
 
@@ -15,11 +16,19 @@ public class Interfaz extends JFrame implements ActionListener {
         this.table = tab.getTable();
 
         // Añadimos la tabla al panel
+
         table.setPreferredScrollableViewportSize(new Dimension(500, 192));
         table.setFillsViewportHeight(true);
         scrollPaneTable = new JScrollPane(table);
         add(scrollPaneTable);
+
         // Botones
+
+        JButton botonTest = new JButton("Test");
+        botonTest.setSize(320, 300);
+        JScrollPane scrollPaneBotonTest = new JScrollPane(botonTest);
+        add(scrollPaneBotonTest);
+        botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
 
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);
@@ -31,6 +40,11 @@ public class Interfaz extends JFrame implements ActionListener {
         JScrollPane scrollPaneBotonEjecutar = new JScrollPane(botonEjecutar);
         botonEjecutar.addActionListener(this);
         add(scrollPaneBotonEjecutar);
+        botonEjecutar.addActionListener(e -> {
+            Long[][] matrix = tab.getTableValues();
+            tab.imprimirMatriz(matrix);
+            System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
+        });
     }
 
     public static void main (String[] args){
@@ -43,5 +57,6 @@ public class Interfaz extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
     }
 }
