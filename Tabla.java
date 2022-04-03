@@ -97,6 +97,15 @@ public class Tabla implements TableModelListener {
         return impuestosHonorarios + impuestosSueldo;
     }
 
+    /*
+    public Long totalImpuestos(Long[][] matrix){
+        long suma = 0L;
+        for (int i = 0; i < 12; i++){
+            suma += matrix[i][1] + matrix[i][4];
+        }
+        return suma;
+    } */
+
     public Long gastosPresuntos(Long totalHonorarios) {
         return Math.round(totalHonorarios * 0.3) ;
     }

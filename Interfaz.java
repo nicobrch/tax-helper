@@ -97,13 +97,13 @@ public class Interfaz extends JFrame implements ActionListener {
             tab.setImpuestoHonorario();
             Long[][] matrix = tab.getTableValues();
             //tab.imprimirMatriz(matrix);
-            //System.out.println("Total Sueldo Imponible: " + tab.totalSueldoImponible(matrix)) ;
-            //System.out.println("Total Honorarios: " + tab.totalHonorarios(matrix)) ;
-            //System.out.println("Gastos Presuntos: " + tab.gastosPresuntos(tab.totalHonorarios(matrix)));
-            //System.out.println("Renta Anual = " + tab.rentaAnual(tab.totalSueldoImponible(matrix),tab.totalHonorarios(matrix),tab.gastosPresuntos(tab.totalHonorarios(matrix))));
-            //System.out.println("Total Impuestos Sueldo = " + tab.totalImpuestosSueldo(matrix) );
-            //System.out.println("Total Impuestos Honorario = " + tab.totalImpuestosHonorario() );
-            //System.out.println("Total Impuestos = " + tab.totalImpuestos() );
+            System.out.println("Total Sueldo Imponible: " + tab.totalSueldoImponible(matrix)) ;
+            System.out.println("Total Honorarios: " + tab.totalHonorarios(matrix)) ;
+            System.out.println("Gastos Presuntos: " + tab.gastosPresuntos(tab.totalHonorarios(matrix)));
+            System.out.println("Renta Anual = " + tab.rentaAnual(tab.totalSueldoImponible(matrix),tab.totalHonorarios(matrix),tab.gastosPresuntos(tab.totalHonorarios(matrix))));
+            System.out.println("Total Impuestos Sueldo = " + tab.totalImpuestosSueldo(matrix) );
+            System.out.println("Total Impuestos Honorario = " + tab.totalImpuestosHonorario() );
+            System.out.println("Total Impuestos = " + tab.totalImpuestos() );
 
             //tab.totalImpuestos(matrix);
         });
