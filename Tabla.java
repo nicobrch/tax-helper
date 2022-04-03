@@ -10,6 +10,8 @@ public class Tabla implements TableModelListener {
 
     private JTable table;
     private Random rand;
+    private Long impuestosHonorarios = 0L;
+    private Long impuestosSueldo = 0L;
 
     public Tabla(){
         rand = new Random();
@@ -52,7 +54,7 @@ public class Tabla implements TableModelListener {
         table.getModel().addTableModelListener(this);
     }
 
-    public Long totalSueldoImponible(Long[][] matrix){
+    public Long totalSueldoImponible(Long[][] matrix) { // Sumatoria de Sueldo Imponible
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
             suma += matrix[i][0];
@@ -60,7 +62,7 @@ public class Tabla implements TableModelListener {
         return suma;
     }
 
-    public Long totalHonorarios(Long[][] matrix){
+    public Long totalHonorarios(Long[][] matrix){ // Sumatoria de los Honorarios Brutos
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
             suma += matrix[i][2];
@@ -68,48 +70,58 @@ public class Tabla implements TableModelListener {
         return suma;
     }
 
-    public Long totalImpuestos(Long[][] matrix){
+    public Long totalImpuestosSueldo(Long[][] matrix){ // Sumatoria de Impuestos Sueldo Imponible (Funciona)
         long suma = 0L;
         for (int i = 0; i < 12; i++){
-            suma += matrix[i][1] + matrix[i][4];
+            suma += matrix[i][1];
         }
+        impuestosSueldo = suma;
         return suma;
     }
 
-    public void setImpuestoHonorario(){
+    public void setImpuestoHonorario() {
         for (int i = 0 ; i < 12 ; i++){
             int honorario = Integer.parseInt(String.valueOf(table.getValueAt(i,3)));
             double num = honorario * 0.1225;
             Long x = Math.round(num);
+            impuestosHonorarios += x;
             table.getModel().setValueAt(x,i,4);
         }
     }
 
-    public Long gastosPresuntos(Long totalHonorarios){
+    public Long totalImpuestosHonorario() {
+        return impuestosHonorarios;
+    }
+
+    public Long totalImpuestos() {
+        return impuestosHonorarios + impuestosSueldo;
+    }
+
+    public Long gastosPresuntos(Long totalHonorarios) {
         return Math.round(totalHonorarios * 0.3) ;
     }
 
-    public Long rentaAnual(Long sueldoImponible, Long totalHonorarios, Long gastosPresuntos){
+    public Long rentaAnual(Long sueldoImponible, Long totalHonorarios, Long gastosPresuntos) {
         return (sueldoImponible + totalHonorarios - gastosPresuntos);
     }
 
-    public Long PagoDevolucion(Long totalImpuestos, Long ImpuestoTabla){
+    public Long PagoDevolucion(Long totalImpuestos, Long ImpuestoTabla) {
         return ImpuestoTabla - totalImpuestos;
     }
 
     public Long ImpuestoGlobalComplementario(Long rentaAnual, Long[][] matriz){
-        for (int i = 0 ; i <8 ; i++){
+        for (int i = 0 ; i < 8 ; i++){
             if (i == 7){
                 return (rentaAnual * matriz[i][3] - matriz[i][4]);
             }
-            if (rentaAnual < matriz[i][1]){
+            if (rentaAnual < matriz[i][1]) {
                 return (rentaAnual * matriz[i][3] - matriz[i][4]);
             }
         }
         return 0L;
     }
 
-    public Long[][] getTableValues(){
+    public Long[][] getTableValues() {
         Long[][] matrix = new Long[12][4];
 
         for (int i = 0; i < 12; i++){
