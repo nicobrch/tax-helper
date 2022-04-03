@@ -93,6 +93,11 @@ public class Tabla implements TableModelListener {
         return (sueldoImponible + totalHonorarios - gastosPresuntos);
     }
 
+    public Long PagoDevolucion(Long totalImpuestos, Long ImpuestoTabla){
+        Long diferencia = ImpuestoTabla - totalImpuestos;
+        return diferencia;
+    }
+
     public Long[][] getTableValues(){
         Long[][] matrix = new Long[12][4];
 
