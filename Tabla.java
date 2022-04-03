@@ -118,7 +118,7 @@ public class Tabla implements TableModelListener {
         return ImpuestoTabla - totalImpuestos;
     }
 
-    public Long ImpuestoGlobalComplementario(Long rentaAnual, Long[][] matriz){
+    public Long ImpuestoGlobalComplementario(Long rentaAnual, Long[][] matriz) {
         for (int i = 0 ; i < 8 ; i++){
             if (i == 7){
                 return (rentaAnual * matriz[i][3] - matriz[i][4]);

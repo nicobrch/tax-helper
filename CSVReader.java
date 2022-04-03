@@ -47,6 +47,5 @@ public class CSVReader {
     public static void main(String[] args) {
         CSVReader reader = new CSVReader();
         reader.imprimirMatriz();
-
     }
 }
