@@ -28,6 +28,7 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelInicial() {
         JPanel panel1 = new JPanel();
         this.getContentPane().add(panel1);
+        setSize(850,170); // Mensaje Completo y Boton Abajo //
 
         JTextArea descripcion = new JTextArea();
         descripcion.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -64,6 +65,7 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelTabla() {
         JPanel panel2 = new JPanel();
         this.getContentPane().add(panel2);
+        setSize(550, 300); // Botones Abajo //
 
         tab = new Tabla();
         this.table = tab.getTable();
@@ -94,11 +96,10 @@ public class Interfaz extends JFrame implements ActionListener {
         botonEjecutar.addActionListener(this);
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
-            tab.setImpuetoHonorario();
             Long[][] matrix = tab.getTableValues();
             tab.imprimirMatriz(matrix);
             System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
-
+            tab.setImpuetoHonorario();
         });
 
         // Boton de Prueba para saber si esta funcionando la ultima ventana(la que indica si paga o le devuelven impuestos) //
@@ -121,6 +122,7 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
+        setSize(1150, 100); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
         detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
