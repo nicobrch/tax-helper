@@ -94,11 +94,12 @@ public class Interfaz extends JFrame implements ActionListener {
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
             tab.setImpuestoHonorario();
-            Long[][] matrix = tab.getTableValues();
+            tab.getMatrixValues();
+            Long[][] matrix = tab.getMatrix();
             //tab.imprimirMatriz(matrix);
             //System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible(matrix)) ;
             //System.out.println( "Total honorarios: " + tab.totalHonorarios(matrix)) ;
-            System.out.println("GAstos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios(matrix)));
+            System.out.println("GAstos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios()));
 
             //tab.totalImpuestos(matrix);
             //System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
@@ -129,7 +130,7 @@ public class Interfaz extends JFrame implements ActionListener {
         detalles.setEditable(false);
         detalles.setLineWrap(false);
         // double valorImpuestoFinal = tab.getImpuesto();
-        int num = -5;
+        Double num = tab.PagoDevolucion();
         if(num > 0) { // Paga de Impuestos
             detalles.setText(
                 """

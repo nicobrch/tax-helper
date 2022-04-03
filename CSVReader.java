@@ -31,11 +31,11 @@ public class CSVReader {
         }
     }
 
-    public Double[][] getMatriz() {
+    public Double[][] getMatrix() {
         return this.TablaRango;
     }
 
-    public void imprimirMatriz() {
+    public void imprimirMatrix() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 4; j++) {
                 System.out.print(this.TablaRango[i][j] + " ");
@@ -46,7 +46,7 @@ public class CSVReader {
 
     public static void main(String[] args) {
         CSVReader reader = new CSVReader();
-        reader.imprimirMatriz();
+        reader.imprimirMatrix();
 
     }
 }

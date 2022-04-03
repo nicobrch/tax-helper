@@ -10,6 +10,8 @@ public class Tabla implements TableModelListener {
 
     private JTable table;
     private Random rand;
+    private CSVReader reader = new CSVReader();
+    private Long[][] matrix = new Long[12][4];
 
     public Tabla(){
         rand = new Random();
@@ -52,26 +54,26 @@ public class Tabla implements TableModelListener {
         table.getModel().addTableModelListener(this);
     }
 
-    public Long totalSueldoImponible(Long[][] matrix){
+    public Long totalSueldoImponible(){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
-            suma += matrix[i][0];
+            suma += this.matrix[i][0];
         }
         return suma;
     }
 
-    public Long totalHonorarios(Long[][] matrix){
+    public Long totalHonorarios(){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
-            suma += matrix[i][2];
+            suma += this.matrix[i][2];
         }
         return suma;
     }
 
-    public Long totalImpuestos(Long[][] matrix){
+    public Long totalImpuestos(){
         long suma = 0L;
         for (int i = 0; i < 12; i++){
-            suma += matrix[i][1] + matrix[i][4];
+            suma += this.matrix[i][1] + this.matrix[i][3];
         }
         return suma;
     }
@@ -89,44 +91,65 @@ public class Tabla implements TableModelListener {
         return Math.round(totalHonorarios * 0.3) ;
     }
 
-    public Long rentaAnual(Long sueldoImponible, Long totalHonorarios, Long gastosPresuntos){
+    public Long rentaAnual(){
+        Long sueldoImponible = totalSueldoImponible();
+        Long totalHonorarios = totalHonorarios();
+        Long gastosPresuntos = gastosPresuntos(totalHonorarios);
         return (sueldoImponible + totalHonorarios - gastosPresuntos);
     }
 
-    public Long PagoDevolucion(Long totalImpuestos, Long ImpuestoTabla){
-        return ImpuestoTabla - totalImpuestos;
-    }
+    public Double ImpuestoGlobalComplementario(){
+        Double[][] matrixCSV = this.reader.getMatrix();
+        Long rentaAnual = rentaAnual();
 
-    public Long ImpuestoGlobalComplementario(Long rentaAnual, Long[][] matriz){
         for (int i = 0 ; i <8 ; i++){
             if (i == 7){
-                return (rentaAnual * matriz[i][3] - matriz[i][4]);
+                return (rentaAnual * matrixCSV[i][2] - matrixCSV[i][3]);
             }
-            if (rentaAnual < matriz[i][1]){
-                return (rentaAnual * matriz[i][3] - matriz[i][4]);
+            if (rentaAnual < matrixCSV[i][1]){
+                return (rentaAnual * matrixCSV[i][2] - matrixCSV[i][3]);
             }
         }
-        return 0L;
+        return 0.0;
     }
 
-    public Long[][] getTableValues(){
-        Long[][] matrix = new Long[12][4];
+    public Double PagoDevolucion(){
+        Double impuestoTabla = ImpuestoGlobalComplementario();
+        Long totalImpuestos = totalImpuestos();
+        return impuestoTabla - totalImpuestos;
+    }
 
+    public void getMatrixValues(){
         for (int i = 0; i < 12; i++){
             for (int j = 0; j < 4; j++){
                 if (!isEmpty(this.table.getValueAt(i, j+1))){
-                    matrix[i][j] = (Long.parseLong(String.valueOf(this.table.getValueAt(i,j+1))));
+                    this.matrix[i][j] = (Long.parseLong(String.valueOf(this.table.getValueAt(i,j+1))));
+                } else {
+                    this.matrix[i][j] = -1L;
                 }
             }
         }
+    }
 
-        return matrix;
+    public boolean checkMatrixEmptyCellsInBetween(){
+        for (int i = 0; i < 12; i++){
+            for (int j = 0; j < 4; j++){
+                if (this.matrix[i][j] == -1L){
+
+                }
+            }
+        }
+        return false;
     }
 
     public void imprimirMatriz(Long[][] matrix){
         for (int i = 0; i < 12; i++){
             System.out.println(matrix[i][0] + " " + matrix[i][1] + " " + matrix[i][2] + " " + matrix[i][3]);
         }
+    }
+
+    public Long[][] getMatrix(){
+        return this.matrix;
     }
 
     public void setRandomValuesOnTable(){
