@@ -14,7 +14,6 @@ public class Interfaz extends JFrame implements ActionListener {
     public Interfaz() {
         setTitle("Tax-Helper");
         setSize(650, 300);
-        setLocationRelativeTo(null);
 
         panelInicial();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -79,6 +78,7 @@ public class Interfaz extends JFrame implements ActionListener {
         panel2.add(scrollPaneTable);
 
         // Botones
+
         JButton botonTest = new JButton("Test");
         botonTest.setSize(320, 300);
         botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
@@ -122,7 +122,7 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
-        setSize(840, 140); // Solo Texto Completo //
+        setSize(1150, 100); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
         detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -130,10 +130,9 @@ public class Interfaz extends JFrame implements ActionListener {
         detalles.setLineWrap(false);
         detalles.setText(
         "TAX-HELPER." +
-        "\n\nTe corresponde DEVOLUCION de impuestos." +
-        "\n\nSegun la tabla del calculo del impuesto global del año {año}" +
-        "\ny los datos de la tabla rellenados hasta el mes {mes}," +
-        "se ha proyectado {proyeccion}, por lo cual le corresponde una devolucion aproximada de {devolucion}."
+        "\nTe corresponde DEVOLUCION de impuestos." +
+        "\nSegun la tabla del calculo del impuesto global del año {año} y los datos de la tabla rellenados hasta el mes {mes}," +
+        "se ha proyectado {proyeccion}, por lo cual le corresponde una devolucion aproximada de {devolucion}"
         );
         detalles.setVisible(true);
         panel3.add(detalles);
