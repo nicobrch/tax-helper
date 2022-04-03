@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 
 public class Interfaz extends JFrame implements ActionListener {
 
@@ -28,20 +27,21 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelInicial() {
         JPanel panel1 = new JPanel();
         this.getContentPane().add(panel1);
-        setSize(850,170); // Mensaje Completo y Boton Abajo //
+        setSize(890,180); // Mensaje Completo y Boton Abajo //
 
         JTextArea descripcion = new JTextArea();
         descripcion.setFont(new Font("Times New Roman", Font.BOLD, 12));
         descripcion.setEditable(false);
         descripcion.setLineWrap(false);
         descripcion.setText(
-            "Bienvenido al programa Tax-Help. \nEste programa tiene como funcionalidad indicarle en base " +
-            "a unos ciertos datos que vera a continuacion, si le corresponde pago o devolucion de impuestos." +
-
-            "\nFavor, seguir las siguientes indicaciones:" +
-            "\n1) En caso de que no se encuentre trabajando, rellenar con '0'." +
-            "\n2) Si no conoce toda la informacion, favor completar solo con la informacion oficial que tenga en su conocimiento." +
-            "\n3) Luego de tener todo, seleccione el boton 'Ejecutar Programa'. "
+        """
+        Bienvenido al programa Tax-Help.
+        Este programa tiene como funcionalidad indicarle en base a unos ciertos datos que debera ingresar a continuacion, si le corresponde pago o devolucion de impuestos.
+        Favor, seguir las siguientes indicaciones:
+        1) En caso de que no se encuentre trabajando, rellenar con '0'.
+        2) Si no conoce toda la informacion, favor completar solo con la informacion oficial que tenga en su conocimiento.
+        3) Luego de tener todo, seleccione el boton 'Ejecutar Programa'.
+        """
         );
         descripcion.setVisible(true);
         panel1.add(descripcion);
@@ -50,13 +50,10 @@ public class Interfaz extends JFrame implements ActionListener {
         botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
         panel1.add(botonOk);
 
-        ActionListener nextPanel = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                remove(panel1);
-                panelTabla();
-                revalidate();
-            }
+        ActionListener nextPanel = e -> {
+            remove(panel1);
+            panelTabla();
+            revalidate();
         };
         botonOk.addActionListener(nextPanel);
     }
@@ -113,13 +110,10 @@ public class Interfaz extends JFrame implements ActionListener {
         botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
         panel2.add(botonOk);
 
-        ActionListener finalpanel = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                remove(panel2);
-                panelFinal();
-                revalidate();
-            }
+        ActionListener finalpanel = e -> {
+            remove(panel2);
+            panelFinal();
+            revalidate();
         };
         botonOk.addActionListener(finalpanel);
     }
@@ -128,18 +122,37 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
-        setSize(840, 140); // Solo Texto Completo //
+        setSize(670, 140); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
         detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
         detalles.setEditable(false);
         detalles.setLineWrap(false);
-        detalles.setText(
-        "TAX-HELPER." +
-        "\nTe corresponde DEVOLUCION de impuestos." +
-        "\nSegun la tabla del calculo del impuesto global del año {año} y los datos de la tabla rellenados hasta el mes {mes}," +
-        "se ha proyectado {proyeccion}, por lo cual le corresponde una devolucion aproximada de {devolucion}"
-        );
+        // double valorImpuestoFinal = tab.getImpuesto();
+        int num = -5;
+        if(num > 0) { // Paga de Impuestos
+            detalles.setText(
+                """
+                TAX-HELPER.
+                
+                Te corresponde PAGO de impuestos.
+                
+                Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
+                hasta el mes {mes}, se ha proyectado {proyeccion}, por lo cual le corresponde una paga aproximada """
+                + " de " + num + " pesos."
+            );
+        } else if (num < 0) { // Devolucion
+            detalles.setText(
+                """
+                TAX-HELPER.
+                                        
+                Te corresponde DEVOLUCION de impuestos.
+                                        
+                Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
+                hasta el mes {mes}, se ha proyectado {proyeccion}, por lo cual le corresponde una paga aproximada """
+                + " de " + num + " pesos."
+            );
+        }
         detalles.setVisible(true);
         panel3.add(detalles);
     }
@@ -155,10 +168,6 @@ public class Interfaz extends JFrame implements ActionListener {
                 }
             }
         }
-    }
-
-    public void ordenarTextos(){
-
     }
 
 }
