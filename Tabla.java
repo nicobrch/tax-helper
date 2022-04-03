@@ -78,8 +78,10 @@ public class Tabla implements TableModelListener {
 
     public void setImpuetoHonorario(){
         for (int i = 0 ; i < 12 ; i++){
-            double honorario = Double.parseDouble(String.valueOf(table.getValueAt(i,3)));
-            table.getModel().setValueAt(honorario*0.1225,i,4);
+            int honorario = Integer.parseInt(String.valueOf(table.getValueAt(i,3)));
+            double num = honorario * 0.1225;
+            Long x = Math.round(num);
+            table.getModel().setValueAt(x,i,4);
         }
     }
 
@@ -92,11 +94,11 @@ public class Tabla implements TableModelListener {
     }
 
     public Long[][] getTableValues(){
-        Long[][] matrix = new Long[12][3];
+        Long[][] matrix = new Long[12][4];
 
         for (int i = 0; i < 12; i++){
-            for (int j = 0; j < 3; j++){
-                if (!isEmpty(this.table.getValueAt(i, j))){
+            for (int j = 0; j < 4; j++){
+                if (!isEmpty(this.table.getValueAt(i, j+1))){
                     matrix[i][j] = (Long.parseLong(String.valueOf(this.table.getValueAt(i,j+1))));
                 }
             }
@@ -107,7 +109,7 @@ public class Tabla implements TableModelListener {
 
     public void imprimirMatriz(Long[][] matrix){
         for (int i = 0; i < 12; i++){
-            System.out.println(matrix[i][0] + " " + matrix[i][1] + " " + matrix[i][2]);
+            System.out.println(matrix[i][0] + " " + matrix[i][1] + " " + matrix[i][2] + " " + matrix[i][3]);
         }
     }
 
