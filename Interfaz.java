@@ -96,10 +96,16 @@ public class Interfaz extends JFrame implements ActionListener {
         botonEjecutar.addActionListener(this);
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
-            Long[][] matrix = tab.getTableValues();
-            tab.imprimirMatriz(matrix);
-            System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
             tab.setImpuetoHonorario();
+            Long[][] matrix = tab.getTableValues();
+            //tab.imprimirMatriz(matrix);
+            //System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible(matrix)) ;
+            //System.out.println( "Total honorarios: " + tab.totalHonorarios(matrix)) ;
+            System.out.println("GAstos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios(matrix)));
+
+            //tab.totalImpuestos(matrix);
+            //System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
+
         });
 
         // Boton de Prueba para saber si esta funcionando la ultima ventana(la que indica si paga o le devuelven impuestos) //

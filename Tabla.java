@@ -85,12 +85,12 @@ public class Tabla implements TableModelListener {
         }
     }
 
-    public Double gastosPresuntos(Long totalHonorarios){
-        return (double)totalHonorarios * 0.3;
+    public Long gastosPresuntos(Long totalHonorarios){
+        return Math.round(totalHonorarios * 0.3) ;
     }
 
-    public Double rentaAnual(Long sueldoImponible, Long totalHonorarios, Double gastosPresuntos){
-        return (double)sueldoImponible + (double)totalHonorarios - gastosPresuntos;
+    public Long rentaAnual(Long sueldoImponible, Long totalHonorarios, Long gastosPresuntos){
+        return (sueldoImponible + totalHonorarios - gastosPresuntos);
     }
 
     public Long[][] getTableValues(){
