@@ -128,7 +128,7 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
-        setSize(1150, 100); // Solo Texto Completo //
+        setSize(840, 140); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
         detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -155,6 +155,11 @@ public class Interfaz extends JFrame implements ActionListener {
                 }
             }
         }
+    }
+
+
+    public void ordenarTextos(){
+
     }
 
 }
