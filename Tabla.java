@@ -94,13 +94,18 @@ public class Tabla implements TableModelListener {
     }
 
     public Long PagoDevolucion(Long totalImpuestos, Long ImpuestoTabla){
-        Long diferencia = ImpuestoTabla - totalImpuestos;
-        return diferencia;
+        return ImpuestoTabla - totalImpuestos;
     }
 
-    public void ImpuestoGlobalComplementario(Long rentaAnual, Long[][] matriz){
-        //funcion para calcular el impuesto de la tabla
-        // cambiar tipo de funcion
+    public Long ImpuestoGlobalComplementario(Long rentaAnual, Long[][] matriz){
+        for (int i = 0 ; i <8 ; i++){
+            if (i == 7){
+                return (rentaAnual * matriz[i][3] - matriz[i][4]);
+            }
+            if (rentaAnual < matriz[i][1]){
+                return (rentaAnual * matriz[i][3] - matriz[i][4]);
+            }
+        }
 
     }
 
