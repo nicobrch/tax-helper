@@ -106,7 +106,7 @@ public class Tabla implements TableModelListener {
                 return (rentaAnual * matriz[i][3] - matriz[i][4]);
             }
         }
-
+        return 0L;
     }
 
     public Long[][] getTableValues(){
