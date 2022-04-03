@@ -135,7 +135,7 @@ public class Tabla implements TableModelListener {
         for (int i = 0; i < 12; i++){
             for (int j = 0; j < 4; j++){
                 if (this.matrix[i][j] == -1L){
-
+                    return true;
                 }
             }
         }
