@@ -89,18 +89,16 @@ public class Interfaz extends JFrame implements ActionListener {
         botonLimpiarTabla.setFont(new Font("Times New Roman", Font.BOLD,12));
         panel2.add(botonLimpiarTabla);
 
-        /*
         JButton botonEjecutar = new JButton("Ejecutar Programa");
         botonEjecutar.setSize(320, 300);
-        JScrollPane scrollPaneBotonEjecutar = new JScrollPane(botonEjecutar);
         botonEjecutar.addActionListener(this);
-        add(scrollPaneBotonEjecutar);
+        panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
             Long[][] matrix = tab.getTableValues();
             tab.imprimirMatriz(matrix);
-            //System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
+            System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
             tab.setImpuetoHonorario();
-        });*/
+        });
 
         // Boton de Prueba para saber si esta funcionando la ultima ventana(la que indica si paga o le devuelven impuestos) //
         botonOk = new JButton("Respuesta");
