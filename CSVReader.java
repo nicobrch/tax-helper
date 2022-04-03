@@ -31,7 +31,7 @@ public class CSVReader {
         }
     }
 
-    public Double[][] getMatriz() {
+    public Double[][] getMatrix() {
         return this.TablaRango;
     }
 
