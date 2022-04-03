@@ -157,7 +157,6 @@ public class Interfaz extends JFrame implements ActionListener {
         }
     }
 
-
     public void ordenarTextos(){
 
     }
