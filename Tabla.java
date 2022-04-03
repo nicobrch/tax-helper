@@ -76,7 +76,7 @@ public class Tabla implements TableModelListener {
         return suma;
     }
 
-    public void setImpuetoHonorario(){
+    public void setImpuestoHonorario(){
         for (int i = 0 ; i < 12 ; i++){
             int honorario = Integer.parseInt(String.valueOf(table.getValueAt(i,3)));
             double num = honorario * 0.1225;
@@ -96,6 +96,12 @@ public class Tabla implements TableModelListener {
     public Long PagoDevolucion(Long totalImpuestos, Long ImpuestoTabla){
         Long diferencia = ImpuestoTabla - totalImpuestos;
         return diferencia;
+    }
+
+    public void ImpuestoGlobalComplementario(Long rentaAnual, Long[][] matriz){
+        //funcion para calcular el impuesto de la tabla
+        // cambiar tipo de funcion
+
     }
 
     public Long[][] getTableValues(){
