@@ -94,7 +94,12 @@ public class Interfaz extends JFrame implements ActionListener {
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
             tab.setImpuestoHonorario();
-            tab.getMatrixValues();
+            if (tab.checkMatrixSueldoImpuesto()){
+
+            }else {
+                tab.getMatrixValues();
+            }
+
             Long[][] matrix = tab.getMatrix();
             //tab.imprimirMatriz(matrix);
             //System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible(matrix)) ;
