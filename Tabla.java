@@ -144,11 +144,11 @@ public class Tabla implements TableModelListener {
 
     public boolean checkMatrixSueldoImpuesto(){
         for (int i = 0; i < 12; i++){
-            if (this.matrix[i][0] == 0L && !isEmpty(this.matrix[i][1])){
-                return true;
+            if (!isEmpty(this.matrix[i][0]) && !isEmpty(this.matrix[i][1])){
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public void imprimirMatriz(Long[][] matrix){
