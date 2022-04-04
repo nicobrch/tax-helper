@@ -125,7 +125,7 @@ public class Tabla implements TableModelListener {
                 if (!isEmpty(this.table.getValueAt(i, j+1))){
                     this.matrix[i][j] = (Long.parseLong(String.valueOf(this.table.getValueAt(i,j+1))));
                 } else {
-                    this.matrix[i][j] = -1L;
+                    this.matrix[i][j] = 0L;
                 }
             }
         }
@@ -134,9 +134,18 @@ public class Tabla implements TableModelListener {
     public boolean checkMatrixEmptyCellsInBetween(){
         for (int i = 0; i < 12; i++){
             for (int j = 0; j < 4; j++){
-                if (this.matrix[i][j] == -1L){
+                if (this.matrix[i][j] == 0L){
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkMatrixSueldoImpuesto(){
+        for (int i = 0; i < 12; i++){
+            if (this.matrix[i][0] == 0L && !isEmpty(this.matrix[i][1])){
+                return true;
             }
         }
         return false;
