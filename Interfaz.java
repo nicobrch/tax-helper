@@ -101,19 +101,24 @@ public class Interfaz extends JFrame implements ActionListener {
             if (tab.checkMatrixSueldoImpuesto() ) {
                 MensajeEmergente();
             } else {
-                System.out.println("Gastos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios()));
-                System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible() ) ;
-                System.out.println( "Total honorarios: " + tab.totalHonorarios()) ;
-                System.out.println( "Impuestos: " + tab.totalImpuestos() );
+                //System.out.println("Gastos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios()));
+                //System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible() ) ;
+                //System.out.println( "Total honorarios: " + tab.totalHonorarios()) ;
+                //System.out.println( "Impuestos: " + tab.totalImpuestos() );
 
-                System.out.println( "Impuesto sacado de la tabla: " + tab.ImpuestoGlobalComplementario() );
-                System.out.println( "Pago Devolucion: " + tab.PagoDevolucion() );
+                //System.out.println( "Impuesto sacado de la tabla: " + tab.ImpuestoGlobalComplementario() );
+                //System.out.println( "Pago Devolucion: " + tab.PagoDevolucion() );
+                tab.PagoDevolucion();
+                remove(panel2);
+                panelFinal();
+                revalidate();
             }
 
             //tab.imprimirMatriz(matrix);
 
         });
 
+        /*
         // Boton de Prueba para saber si esta funcionando la ultima ventana(la que indica si paga o le devuelven impuestos) //
         botonOk = new JButton("Respuesta");
         botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -125,19 +130,20 @@ public class Interfaz extends JFrame implements ActionListener {
             revalidate();
         };
         botonOk.addActionListener(finalpanel);
+        */
     }
 
     // Panel con Mensaje sobre Devolucion o Pago de Impuestos.
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
-        setSize(670, 140); // Solo Texto Completo //
+        setSize(810, 140); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
         detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
         detalles.setEditable(false);
         detalles.setLineWrap(false);
-        // double valorImpuestoFinal = tab.getImpuesto();
+
         Double num = tab.PagoDevolucion();
         if(num > 0) { // Paga de Impuestos
             detalles.setText(
@@ -147,7 +153,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 Te corresponde PAGO de impuestos.
                 
                 Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
-                hasta el mes {mes}, se ha proyectado {proyeccion}, por lo cual le corresponde una paga aproximada """
+                hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto, le corresponde una paga aproximada """
                 + " de " + num + " pesos."
             );
         } else if (num < 0) { // Devolucion
@@ -158,8 +164,8 @@ public class Interfaz extends JFrame implements ActionListener {
                 Te corresponde DEVOLUCION de impuestos.
                                         
                 Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
-                hasta el mes {mes}, se ha proyectado {proyeccion}, por lo cual le corresponde una paga aproximada """
-                + " de " + num + " pesos."
+                hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto, le corresponde una paga aproximada """
+                + " de " + (-1)*num + " pesos."
             );
         }
         detalles.setVisible(true);
