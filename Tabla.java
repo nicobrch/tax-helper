@@ -229,32 +229,28 @@ public class Tabla implements TableModelListener {
         return this.matrix;
     }
 
-    /*
-    public void setRandomValuesOnTable(){
-        for (int i = 0; i < 4; i++){
-            for (int j = 1; j < 4; j++){
-                Long v = rand.nextLong(9999999);
-                this.table.setValueAt(v, i, j);
+    public void setRandomValuesOnTable(String modo){
+        if (modo.equals("Random")){
+            for (int i = 0; i < 4; i++){
+                for (int j = 1; j < 4; j++){
+                    Long v = rand.nextLong(9999999);
+                    this.table.setValueAt(v, i, j);
+                }
+            }
+        } else if (modo.equals("Paga Impuestos")){
+            for (int i = 0; i < 4; i++) {
+                this.table.setValueAt(10000000,i,1);
+                this.table.setValueAt(1000,i,2);
+                this.table.setValueAt(10000000,i,3);
+            }
+        } else {
+            for (int i = 0; i < 6; i++) {
+                this.table.setValueAt(1000000,i,1);
+                this.table.setValueAt(10000,i,2);
+                this.table.setValueAt(1000000,i,3);
             }
         }
-    }*/
-
-    public void setRandomValuesOnTable() { // Paga Impuestos
-        for (int i = 0; i < 4; i++) {
-            this.table.setValueAt(10000000,i,1);
-            this.table.setValueAt(1000,i,2);
-            this.table.setValueAt(10000000,i,3);
-        }
     }
-
-    /*
-    public void setRandomValuesOnTable() { // Devolucion Impuestos
-        for (int i = 0; i < 6; i++) {
-            this.table.setValueAt(1000000,i,1);
-            this.table.setValueAt(10000,i,2);
-            this.table.setValueAt(1000000,i,3);
-        }
-    }*/
 
     private boolean isEmpty(Object obj) {
         return obj == "";

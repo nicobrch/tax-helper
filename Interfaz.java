@@ -86,9 +86,11 @@ public class Interfaz extends JFrame implements ActionListener {
         });
         panel2.add(botonAtras);
 
+        panel2.add(Box.createRigidArea(new Dimension(245, 0)));
+
         JButton botonTest = new JButton("Test");
         botonTest.setSize(320, 300);
-        botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
+        botonTest.addActionListener(e -> tab.setRandomValuesOnTable("Paga Impuestos")); //modo = "Random" o "Paga Impuestos", sino se devuelve.
         panel2.add(botonTest);
 
         JButton botonLimpiarTabla = new JButton("Limpiar");
@@ -96,6 +98,8 @@ public class Interfaz extends JFrame implements ActionListener {
         botonLimpiarTabla.addActionListener(this);
         botonLimpiarTabla.setActionCommand("Limpiar");
         panel2.add(botonLimpiarTabla);
+
+        panel2.add(Box.createRigidArea(new Dimension(245, 0)));
 
         JButton botonProyeccion = new JButton("Proyeccion");
         botonProyeccion.setSize(320, 300);
