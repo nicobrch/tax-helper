@@ -94,20 +94,23 @@ public class Interfaz extends JFrame implements ActionListener {
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
             tab.setImpuestoHonorario();
-            if (tab.checkMatrixSueldoImpuesto()){
-
-            }else {
-                tab.getMatrixValues();
-            }
+            tab.getMatrixValues();
 
             Long[][] matrix = tab.getMatrix();
-            //tab.imprimirMatriz(matrix);
-            //System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible(matrix)) ;
-            //System.out.println( "Total honorarios: " + tab.totalHonorarios(matrix)) ;
-            System.out.println("GAstos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios()));
 
-            //tab.totalImpuestos(matrix);
-            //System.out.println("Total SI: " + tab.totalSueldoImponible(matrix));
+            if (tab.checkMatrixSueldoImpuesto() ) {
+                MensajeEmergente();
+            } else {
+                System.out.println("Gastos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios()));
+                System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible() ) ;
+                System.out.println( "Total honorarios: " + tab.totalHonorarios()) ;
+                System.out.println( "Impuestos: " + tab.totalImpuestos() );
+
+                System.out.println( "Impuesto sacado de la tabla: " + tab.ImpuestoGlobalComplementario() );
+                System.out.println( "Pago Devolucion: " + tab.PagoDevolucion() );
+            }
+
+            //tab.imprimirMatriz(matrix);
 
         });
 
@@ -161,6 +164,11 @@ public class Interfaz extends JFrame implements ActionListener {
         }
         detalles.setVisible(true);
         panel3.add(detalles);
+    }
+
+    public void MensajeEmergente() {
+        JFrame jFrame = new JFrame();
+        JOptionPane.showMessageDialog(jFrame, "Favor, ingresa los datos correctamente.");
     }
 
     // Funcion Boton Limpiar

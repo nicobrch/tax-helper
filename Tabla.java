@@ -70,7 +70,7 @@ public class Tabla implements TableModelListener {
         return suma;
     }
 
-    public Long totalImpuestos(){
+    public Long totalImpuestos() {
         long suma = 0L;
         for (int i = 0; i < 12; i++){
             suma += this.matrix[i][1] + this.matrix[i][3];
@@ -91,29 +91,29 @@ public class Tabla implements TableModelListener {
         return Math.round(totalHonorarios * 0.3) ;
     }
 
-    public Long rentaAnual(){
+    public Long rentaAnual() {
         Long sueldoImponible = totalSueldoImponible();
         Long totalHonorarios = totalHonorarios();
         Long gastosPresuntos = gastosPresuntos(totalHonorarios);
         return (sueldoImponible + totalHonorarios - gastosPresuntos);
     }
 
-    public Double ImpuestoGlobalComplementario(){
+    public Double ImpuestoGlobalComplementario() {
         Double[][] matrixCSV = this.reader.getMatrix();
         Long rentaAnual = rentaAnual();
 
-        for (int i = 0 ; i <8 ; i++){
-            if (i == 7){
+        for (int i = 0 ; i < 8 ; i++) {
+            if (i == 7) {
                 return (rentaAnual * matrixCSV[i][2] - matrixCSV[i][3]);
             }
-            if (rentaAnual < matrixCSV[i][1]){
+            if ( rentaAnual < matrixCSV[i][1] ) {
                 return (rentaAnual * matrixCSV[i][2] - matrixCSV[i][3]);
             }
         }
         return 0.0;
     }
 
-    public Double PagoDevolucion(){
+    public Double PagoDevolucion() {
         Double impuestoTabla = ImpuestoGlobalComplementario();
         Long totalImpuestos = totalImpuestos();
         return impuestoTabla - totalImpuestos;
@@ -142,13 +142,13 @@ public class Tabla implements TableModelListener {
         return false;
     }
 
-    public boolean checkMatrixSueldoImpuesto(){
-        for (int i = 0; i < 12; i++){
-            if (!isEmpty(this.matrix[i][0]) && !isEmpty(this.matrix[i][1])){
-                return false;
+    public boolean checkMatrixSueldoImpuesto() {
+        for (int i = 0; i < 12; i++) {
+            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) ) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void imprimirMatriz(Long[][] matrix){
@@ -160,13 +160,21 @@ public class Tabla implements TableModelListener {
     public Long[][] getMatrix(){
         return this.matrix;
     }
-
+    /*
     public void setRandomValuesOnTable(){
         for (int i = 0; i < 12; i++){
             for (int j = 1; j < 4; j++){
                 Long v = rand.nextLong(9999999);
                 this.table.setValueAt(v, i, j);
             }
+        }
+    }*/
+
+    public void setRandomValuesOnTable() {
+        for (int i = 0; i < 12; i++) {
+            this.table.setValueAt(1000000,i,1);
+            this.table.setValueAt(10000,i,2);
+            this.table.setValueAt(1000000,i,3);
         }
     }
 
