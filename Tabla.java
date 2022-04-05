@@ -154,7 +154,9 @@ public class Tabla implements TableModelListener {
 
     public boolean checkMatrixSueldoImpuesto() {
         for (int i = 0; i < 12; i++) {
-            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) || (this.matrix[i][2] == 0L) ) {
+            if ( (this.matrix[i][0] == 0 && this.matrix[i][1] != 0 ) ) {
+                return true;
+            } else if( (this.matrix[i][0] != 0 && this.matrix[i][1] == 0 ) ) {
                 return true;
             }
         }
@@ -163,26 +165,29 @@ public class Tabla implements TableModelListener {
 
     public boolean checkMatrixProyeccion() {
         int x = cantidadSueldo();
-        for (int i = 0; i < x; i++) {
-            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) || (this.matrix[i][2] == 0L)) {
+        for (int i = 0; i < 12; i++) {
+            if ( (this.matrix[i][0] == 0 && this.matrix[i][1] != 0) ) {
+                return true;
+            }
+            if ( (this.matrix[i][0] != 0 && this.matrix[i][1] == 0) ) {
                 return true;
             }
         }
         return false;
     }
 
-    public Integer cantidadSueldo(){
+    public Integer cantidadSueldo() {
         int countSueldo = 0;
 
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][0] == 0L) {
+            if (this.matrix[i][0] == 0) {
                 countSueldo++;
             }
         }
         return 12 - countSueldo;
     }
 
-    public Integer cantidadHonorario(){
+    public Integer cantidadHonorario() {
         int countHonorario = 0;
 
         for (int i = 0 ; i < 12 ; i++){
@@ -201,10 +206,16 @@ public class Tabla implements TableModelListener {
         return count;
     }
 
-    public void Proyeccion(){
+    public void Proyeccion() {
         Long promedioSueldo = totalSueldoImponible() / cantidadSueldo();
         Long promedioImpuestosSueldo = ImpuestoSueldo() / cantidadSueldo();
-        Long promedioHonorario = totalHonorarios() / cantidadHonorario();
+        Long promedioHonorario;
+
+        if(cantidadHonorario() == 0) {
+            promedioHonorario = 0L;
+        } else {
+            promedioHonorario = totalHonorarios() / cantidadHonorario();
+        }
 
         for (int i = 0 ; i < 12 ; i++){
             if (this.matrix[i][0] == 0L){
