@@ -150,7 +150,7 @@ public class Interfaz extends JFrame implements ActionListener {
         detalles.setFont(font);
         detalles.setSize(900,400);
         detalles.setEditable(false);
-        detalles.setLineWrap(false);
+        detalles.setLineWrap(true);
 
         Double num = tab.PagoDevolucion();
         if(num > 0) { // Paga de Impuestos
