@@ -96,7 +96,6 @@ public class Interfaz extends JFrame implements ActionListener {
         });
         panel2.add(botonProyeccion);
 
-
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);
         botonLimpiarTabla.addActionListener(this);
@@ -117,36 +116,14 @@ public class Interfaz extends JFrame implements ActionListener {
             if (tab.checkMatrixSueldoImpuesto() ) {
                 MensajeEmergente();
             } else {
-                //System.out.println("Gastos presuntos: " + tab.gastosPresuntos(tab.totalHonorarios()));
-                //System.out.println( "Total sueldo imponible: " + tab.totalSueldoImponible() ) ;
-                //System.out.println( "Total honorarios: " + tab.totalHonorarios()) ;
-                //System.out.println( "Impuestos: " + tab.totalImpuestos() );
-
-                //System.out.println( "Impuesto sacado de la tabla: " + tab.ImpuestoGlobalComplementario() );
-                //System.out.println( "Pago Devolucion: " + tab.PagoDevolucion() );
                 tab.PagoDevolucion();
                 remove(panel2);
                 panelFinal();
                 revalidate();
             }
 
-            //tab.imprimirMatriz(matrix);
-
         });
 
-        /*
-        // Boton de Prueba para saber si esta funcionando la ultima ventana(la que indica si paga o le devuelven impuestos) //
-        botonOk = new JButton("Respuesta");
-        botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
-        panel2.add(botonOk);
-
-        ActionListener finalpanel = e -> {
-            remove(panel2);
-            panelFinal();
-            revalidate();
-        };
-        botonOk.addActionListener(finalpanel);
-        */
     }
 
     // Panel con Mensaje sobre Devolucion o Pago de Impuestos.

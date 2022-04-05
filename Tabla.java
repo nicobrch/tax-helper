@@ -150,6 +150,7 @@ public class Tabla implements TableModelListener {
         }
         return false;
     }
+
     public boolean checkMatrixProyeccion() {
         int x = cantidadSueldo();
         for (int i = 0; i < x; i++) {
@@ -170,6 +171,7 @@ public class Tabla implements TableModelListener {
         }
         return 12 - countSueldo;
     }
+
     public Integer cantidadHonorario(){
         int countHonorario = 0;
 
@@ -227,7 +229,6 @@ public class Tabla implements TableModelListener {
         }
     }*/
 
-
     public void setRandomValuesOnTable() { // Paga Impuestos
         for (int i = 0; i < 4; i++) {
             this.table.setValueAt(10000000,i,1);
@@ -235,6 +236,7 @@ public class Tabla implements TableModelListener {
             this.table.setValueAt(10000000,i,3);
         }
     }
+
     /*
     public void setRandomValuesOnTable() { // Devolucion Impuestos
         for (int i = 0; i < 6; i++) {
