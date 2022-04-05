@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
@@ -47,10 +48,19 @@ public class Tabla implements TableModelListener {
             }
         };
 
-        //Evitamos edicion de la tabla
+
+        //Dimensiones
+        table.setRowHeight(30);
+        TableColumnModel columnModel = table.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(100);
+        for (int i = 1; i < 5; i++){
+            columnModel.getColumn(i).setPreferredWidth(200);
+        }
+
+
+        //Evitar edicion
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
-
         table.getModel().addTableModelListener(this);
     }
 

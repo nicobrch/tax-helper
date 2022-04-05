@@ -27,12 +27,14 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelInicial() {
         JPanel panel1 = new JPanel();
         this.getContentPane().add(panel1);
-        setSize(890,180); // Mensaje Completo y Boton Abajo //
+        setSize(960,480); // Mensaje Completo y Boton Abajo //
 
         JTextArea descripcion = new JTextArea();
-        descripcion.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        Font font = new Font("Arial", Font.PLAIN, 20);
+        descripcion.setSize(900,400);
         descripcion.setEditable(false);
-        descripcion.setLineWrap(false);
+        descripcion.setLineWrap(true);
+        descripcion.setFont(font);
         descripcion.setText(
         """
         Bienvenido al programa Tax-Help.
@@ -47,7 +49,6 @@ public class Interfaz extends JFrame implements ActionListener {
         panel1.add(descripcion);
 
         botonOk = new JButton("Ok!");
-        botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
         panel1.add(botonOk);
 
         ActionListener nextPanel = e -> {
@@ -62,24 +63,39 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelTabla() {
         JPanel panel2 = new JPanel();
         this.getContentPane().add(panel2);
-        setSize(550, 300); // Botones Abajo //
+        setSize(960, 480); // Botones Abajo //
 
         tab = new Tabla();
         this.table = tab.getTable();
 
         // Añadimos la tabla al panel
-        table.setPreferredScrollableViewportSize(new Dimension(500, 192));
         table.setFillsViewportHeight(true);
+        table.setPreferredScrollableViewportSize(table.getPreferredSize());
         scrollPaneTable = new JScrollPane(table);
         scrollPaneTable.setVisible(true);
         panel2.add(scrollPaneTable);
 
         // Botones
 
+        JButton botonAtras = new JButton("Atras");
+        botonAtras.setSize(320, 300);
+        botonAtras.addActionListener(e -> {
+            remove(panel2);
+            panelInicial();
+            revalidate();
+        });
+        panel2.add(botonAtras);
+
         JButton botonTest = new JButton("Test");
         botonTest.setSize(320, 300);
         botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
         panel2.add(botonTest);
+
+        JButton botonLimpiarTabla = new JButton("Limpiar");
+        botonLimpiarTabla.setSize(320, 300);
+        botonLimpiarTabla.addActionListener(this);
+        botonLimpiarTabla.setActionCommand("Limpiar");
+        panel2.add(botonLimpiarTabla);
 
         JButton botonProyeccion = new JButton("Proyeccion");
         botonProyeccion.setSize(320, 300);
@@ -96,14 +112,7 @@ public class Interfaz extends JFrame implements ActionListener {
         });
         panel2.add(botonProyeccion);
 
-        JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
-        botonLimpiarTabla.setSize(320, 300);
-        botonLimpiarTabla.addActionListener(this);
-        botonLimpiarTabla.setActionCommand("Limpiar");
-        botonLimpiarTabla.setFont(new Font("Times New Roman", Font.BOLD,12));
-        panel2.add(botonLimpiarTabla);
-
-        JButton botonEjecutar = new JButton("Ejecutar Programa");
+        JButton botonEjecutar = new JButton("Ejecutar");
         botonEjecutar.setSize(320, 300);
         botonEjecutar.addActionListener(this);
         panel2.add(botonEjecutar);
@@ -130,10 +139,12 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
-        setSize(810, 180); // Solo Texto Completo //
+        setSize(960, 480); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
-        detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        Font font = new Font("Arial", Font.PLAIN, 20);
+        detalles.setFont(font);
+        detalles.setSize(900,400);
         detalles.setEditable(false);
         detalles.setLineWrap(false);
 
@@ -165,7 +176,6 @@ public class Interfaz extends JFrame implements ActionListener {
         panel3.add(detalles);
 
         botonOk = new JButton("Calcular nuevamente");
-        botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
         panel3.add(botonOk);
 
         ActionListener nextPanel = e -> {
