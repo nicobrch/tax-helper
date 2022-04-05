@@ -144,7 +144,7 @@ public class Tabla implements TableModelListener {
 
     public boolean checkMatrixSueldoImpuesto() {
         for (int i = 0; i < 12; i++) {
-            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) ) {
+            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) || (this.matrix[i][2] == 0L) ) {
                 return true;
             }
         }
@@ -154,7 +154,7 @@ public class Tabla implements TableModelListener {
     public boolean checkMatrixProyeccion() {
         int x = cantidadSueldo();
         for (int i = 0; i < x; i++) {
-            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) ) {
+            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) || (this.matrix[i][2] == 0L)) {
                 return true;
             }
         }
