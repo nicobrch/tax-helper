@@ -188,11 +188,11 @@ public class Tabla implements TableModelListener {
         }
     }
 
-    private boolean isEmpty(Object obj){
+    private boolean isEmpty(Object obj) {
         return obj == "";
     }
 
-    private boolean isNumeric(Object obj){
+    private boolean isNumeric(Object obj) {
         if (obj == null) return false;
         try {
             Long.parseLong(String.valueOf(obj));

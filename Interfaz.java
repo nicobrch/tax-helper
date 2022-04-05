@@ -76,7 +76,7 @@ public class Interfaz extends JFrame implements ActionListener {
 
         // Botones
 
-        JButton botonTest = new JButton("Test");
+        JButton botonTest = new JButton("Proyeccion");
         botonTest.setSize(320, 300);
         botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
         panel2.add(botonTest);
@@ -137,7 +137,7 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
-        setSize(810, 140); // Solo Texto Completo //
+        setSize(810, 180); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
         detalles.setFont(new Font("Times New Roman", Font.BOLD, 12));
@@ -170,6 +170,17 @@ public class Interfaz extends JFrame implements ActionListener {
         }
         detalles.setVisible(true);
         panel3.add(detalles);
+
+        botonOk = new JButton("Calcular nuevamente");
+        botonOk.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        panel3.add(botonOk);
+
+        ActionListener nextPanel = e -> {
+            remove(panel3);
+            panelTabla();
+            revalidate();
+        };
+        botonOk.addActionListener(nextPanel);
     }
 
     public void MensajeEmergente() {
