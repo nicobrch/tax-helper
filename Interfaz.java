@@ -76,10 +76,26 @@ public class Interfaz extends JFrame implements ActionListener {
 
         // Botones
 
-        JButton botonTest = new JButton("Proyeccion");
+        JButton botonTest = new JButton("Test");
         botonTest.setSize(320, 300);
         botonTest.addActionListener(e -> tab.setRandomValuesOnTable());
         panel2.add(botonTest);
+
+        JButton botonProyeccion = new JButton("Proyeccion");
+        botonProyeccion.setSize(320, 300);
+        botonProyeccion.addActionListener(e -> {
+            tab.getMatrixValues();
+
+            if (tab.checkMatrixProyeccion() ) {
+                MensajeEmergente();
+            } else {
+                tab.Proyeccion();
+                tab.setImpuestoHonorario();
+
+            }
+        });
+        panel2.add(botonProyeccion);
+
 
         JButton botonLimpiarTabla = new JButton("Limpiar Tabla");
         botonLimpiarTabla.setSize(320, 300);

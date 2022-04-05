@@ -150,6 +150,62 @@ public class Tabla implements TableModelListener {
         }
         return false;
     }
+    public boolean checkMatrixProyeccion() {
+        int x = cantidadSueldo();
+        for (int i = 0; i < x; i++) {
+            if ( (this.matrix[i][0] == 0L) || (this.matrix[i][1] == 0L) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Integer cantidadSueldo(){
+        int countSueldo = 0;
+
+        for (int i = 0 ; i < 12 ; i++){
+            if (this.matrix[i][0] == 0L) {
+                countSueldo++;
+            }
+        }
+        return 12 - countSueldo;
+    }
+    public Integer cantidadHonorario(){
+        int countHonorario = 0;
+
+        for (int i = 0 ; i < 12 ; i++){
+            if (this.matrix[i][2] == 0L) {
+                countHonorario++;
+            }
+        }
+        return  12 - countHonorario;
+    }
+
+    public Long ImpuestoSueldo(){
+        Long count = 0L;
+        for (int i = 0 ; i < 12 ; i++){
+            count += matrix[i][1];
+        }
+        return count;
+    }
+
+    public void Proyeccion(){
+        Long promedioSueldo = totalSueldoImponible() / cantidadSueldo();
+        Long promedioImpuestosSueldo = ImpuestoSueldo() / cantidadSueldo();
+        Long promedioHonorario = totalHonorarios() / cantidadHonorario();
+
+        for (int i = 0 ; i < 12 ; i++){
+            if (this.matrix[i][0] == 0L){
+                this.table.setValueAt(promedioSueldo,i,1);
+            }
+            if (this.matrix[i][1] == 0L){
+                this.table.setValueAt(promedioImpuestosSueldo,i,2);
+            }
+            if (this.matrix[i][2] == 0L){
+                this.table.setValueAt(promedioHonorario,i,3);
+            }
+        }
+    }
 
     public void imprimirMatriz(Long[][] matrix){
         for (int i = 0; i < 12; i++){
@@ -163,30 +219,30 @@ public class Tabla implements TableModelListener {
 
     /*
     public void setRandomValuesOnTable(){
-        for (int i = 0; i < 12; i++){
+        for (int i = 0; i < 4; i++){
             for (int j = 1; j < 4; j++){
                 Long v = rand.nextLong(9999999);
                 this.table.setValueAt(v, i, j);
             }
         }
-    } */
+    }*/
 
-    /*
+
     public void setRandomValuesOnTable() { // Paga Impuestos
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 4; i++) {
             this.table.setValueAt(10000000,i,1);
             this.table.setValueAt(1000,i,2);
             this.table.setValueAt(10000000,i,3);
         }
-    } */
-
+    }
+    /*
     public void setRandomValuesOnTable() { // Devolucion Impuestos
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 6; i++) {
             this.table.setValueAt(1000000,i,1);
             this.table.setValueAt(10000,i,2);
             this.table.setValueAt(1000000,i,3);
         }
-    }
+    }*/
 
     private boolean isEmpty(Object obj) {
         return obj == "";
