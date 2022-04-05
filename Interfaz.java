@@ -154,7 +154,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 
                 Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
                 hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto, le corresponde una paga aproximada """
-                + " de " + num + " pesos."
+                + " de " + Math.round( num ) + " pesos."
             );
         } else if (num < 0) { // Devolucion
             detalles.setText(
@@ -165,7 +165,7 @@ public class Interfaz extends JFrame implements ActionListener {
                                         
                 Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
                 hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto, le corresponde una paga aproximada """
-                + " de " + (-1)*num + " pesos."
+                + " de " + Math.round( (-1)*num ) + " pesos."
             );
         }
         detalles.setVisible(true);

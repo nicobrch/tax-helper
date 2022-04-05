@@ -160,6 +160,7 @@ public class Tabla implements TableModelListener {
     public Long[][] getMatrix(){
         return this.matrix;
     }
+
     /*
     public void setRandomValuesOnTable(){
         for (int i = 0; i < 12; i++){
@@ -168,9 +169,18 @@ public class Tabla implements TableModelListener {
                 this.table.setValueAt(v, i, j);
             }
         }
-    }*/
+    } */
 
-    public void setRandomValuesOnTable() {
+    /*
+    public void setRandomValuesOnTable() { // Paga Impuestos
+        for (int i = 0; i < 12; i++) {
+            this.table.setValueAt(10000000,i,1);
+            this.table.setValueAt(1000,i,2);
+            this.table.setValueAt(10000000,i,3);
+        }
+    } */
+
+    public void setRandomValuesOnTable() { // Devolucion Impuestos
         for (int i = 0; i < 12; i++) {
             this.table.setValueAt(1000000,i,1);
             this.table.setValueAt(10000,i,2);
