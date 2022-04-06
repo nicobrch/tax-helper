@@ -110,7 +110,7 @@ public class Interfaz extends JFrame implements ActionListener {
 
             if (tab.checkMatrixProyeccion() ) {
                 MensajeEmergente();
-            } else if(tab.isEmptySandwich(2)){
+            } else if(tab.isEmptySandwich()){
                 MensajeEmergente();
             } else {
                 tab.Proyeccion();
@@ -130,7 +130,7 @@ public class Interfaz extends JFrame implements ActionListener {
 
             Long[][] matrix = tab.getMatrix();
 
-            if (tab.checkMatrixSueldoImpuesto() ) {
+            if (tab.isEmptySandwich() ) {
                 MensajeEmergente();
             } else {
                 tab.PagoDevolucion();

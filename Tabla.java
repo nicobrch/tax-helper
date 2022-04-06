@@ -1,10 +1,7 @@
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Tabla implements TableModelListener {
@@ -12,7 +9,7 @@ public class Tabla implements TableModelListener {
     private JTable table;
     private Random rand;
     private CSVReader reader = new CSVReader();
-    private Long[][] matrix = new Long[12][4];
+    private Long[][] matrix = new Long[12][4]; //Matriz de valores (sin contar la columna de meses).
 
     public Tabla(){
         rand = new Random();
@@ -100,6 +97,18 @@ public class Tabla implements TableModelListener {
         return suma;
     }
 
+    public Long totalImpuestoSueldo(){
+        Long suma = 0L;
+        for (int i = 0 ; i < 12 ; i++){
+            if (this.matrix[i][1] == -1L){
+                suma += 0;
+                continue;
+            }
+            suma += matrix[i][1];
+        }
+        return suma;
+    }
+
     public void setImpuestoHonorario(){
         long honorario;
         for (int i = 0 ; i < 12 ; i++){
@@ -158,20 +167,28 @@ public class Tabla implements TableModelListener {
         }
     }
 
-    public boolean isEmptySandwich(int column){
-        for (int i = 0; i < 12-1; i++){
-            if ((this.matrix[i][column] == -1L) && (this.matrix[i+1][column] != -1L)){
-                return true;
+    public int checkLastFullRow(){
+        for (int i = 11; i > 0; i--){
+            if (this.matrix[i][0] != -1L && this.matrix[i][1] != -1L && this.matrix[i][2] != -1L){
+                return i;
             }
         }
-        return false;
+        return 0;
     }
 
-    public boolean checkMatrixSueldoImpuesto() {
-        for (int i = 0; i < 12; i++) {
-            if ( (this.matrix[i][0] == 0 && this.matrix[i][1] != 0 ) ) {
+    public boolean isEmptySandwich() {
+        for (int i = 0; i < 11; i++) {
+            if (this.matrix[i][0] == -1L && this.matrix[i+1][0] != -1L) {
                 return true;
-            } else if( (this.matrix[i][0] != 0 && this.matrix[i][1] == 0 ) ) {
+            } else if(this.matrix[i][1] == -1L && this.matrix[i+1][1] != -1L) {
+                return true;
+            } else if(this.matrix[i][2] == -1L && this.matrix[i+1][2] != -1L) {
+                return true;
+            } else if((this.matrix[i][0] == -1L && this.matrix[i][1] != -1L) || (this.matrix[i][0] == -1L && this.matrix[i][2] != -1L)) {
+                return true;
+            } else if((this.matrix[i][1] == -1L && this.matrix[i][0] != -1L) || (this.matrix[i][1] == -1L && this.matrix[i][2] != -1L)) {
+                return true;
+            } else if((this.matrix[i][2] == -1L && this.matrix[i][0] != -1L) || (this.matrix[i][2] == -1L && this.matrix[i][1] != -1L)) {
                 return true;
             }
         }
@@ -212,17 +229,9 @@ public class Tabla implements TableModelListener {
         return  12 - countHonorario;
     }
 
-    public Long ImpuestoSueldo(){
-        Long count = 0L;
-        for (int i = 0 ; i < 12 ; i++){
-            count += matrix[i][1];
-        }
-        return count;
-    }
-
     public void Proyeccion() {
         Long promedioSueldo = totalSueldoImponible() / cantidadSueldo();
-        Long promedioImpuestosSueldo = ImpuestoSueldo() / cantidadSueldo();
+        Long promedioImpuestosSueldo = totalImpuestoSueldo() / cantidadSueldo();
         Long promedioHonorario;
 
         if(cantidadHonorario() == 0) {
@@ -231,14 +240,16 @@ public class Tabla implements TableModelListener {
             promedioHonorario = totalHonorarios() / cantidadHonorario();
         }
 
-        for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][0] == 0L){
+        int inicio = checkLastFullRow();
+
+        for (int i = inicio ; i < 12 ; i++){
+            if (this.matrix[i][0] == -1L){
                 this.table.setValueAt(promedioSueldo,i,1);
             }
-            if (this.matrix[i][1] == 0L){
+            if (this.matrix[i][1] == -1L){
                 this.table.setValueAt(promedioImpuestosSueldo,i,2);
             }
-            if (this.matrix[i][2] == 0L){
+            if (this.matrix[i][2] == -1L){
                 this.table.setValueAt(promedioHonorario,i,3);
             }
         }
