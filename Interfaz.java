@@ -108,7 +108,9 @@ public class Interfaz extends JFrame implements ActionListener {
         botonProyeccion.addActionListener(e -> {
             tab.parseMatrixValues();
 
-            if (tab.checkMatrixProyeccion() ) {
+            if (tab.isFirstRowEmpty()) {
+                MensajeEmergente();
+            } else if(tab.checkMatrixProyeccion()){
                 MensajeEmergente();
             } else if(tab.isEmptySandwich()){
                 MensajeEmergente();

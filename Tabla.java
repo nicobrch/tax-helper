@@ -207,6 +207,10 @@ public class Tabla implements TableModelListener {
         return true;
     }
 
+    public boolean isFirstRowEmpty(){
+        return !isNumeric(this.table.getValueAt(0, 1)) && !isNumeric(this.table.getValueAt(0, 2)) && !isNumeric(this.table.getValueAt(0, 3));
+    }
+
     public boolean checkMatrixProyeccion() {
         for (int i = 0; i < 12; i++) {
             if ( (this.matrix[i][0] == 0 && this.matrix[i][1] != 0) ) {
