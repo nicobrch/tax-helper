@@ -86,6 +86,7 @@ public class Interfaz extends JFrame implements ActionListener {
         });
         panel2.add(botonAtras);
 
+
         panel2.add(Box.createRigidArea(new Dimension(245, 0)));
 
         JButton botonTest = new JButton("Test");
@@ -101,12 +102,15 @@ public class Interfaz extends JFrame implements ActionListener {
 
         panel2.add(Box.createRigidArea(new Dimension(245, 0)));
 
+
         JButton botonProyeccion = new JButton("Proyeccion");
         botonProyeccion.setSize(320, 300);
         botonProyeccion.addActionListener(e -> {
-            tab.getMatrixValues();
+            tab.parseMatrixValues();
 
             if (tab.checkMatrixProyeccion() ) {
+                MensajeEmergente();
+            } else if(tab.isEmptySandwich(2)){
                 MensajeEmergente();
             } else {
                 tab.Proyeccion();
@@ -115,13 +119,14 @@ public class Interfaz extends JFrame implements ActionListener {
         });
         panel2.add(botonProyeccion);
 
+
         JButton botonEjecutar = new JButton("Ejecutar");
         botonEjecutar.setSize(320, 300);
         botonEjecutar.addActionListener(this);
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
             tab.setImpuestoHonorario();
-            tab.getMatrixValues();
+            tab.parseMatrixValues();
 
             Long[][] matrix = tab.getMatrix();
 
