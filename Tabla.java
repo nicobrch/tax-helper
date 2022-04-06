@@ -67,6 +67,10 @@ public class Tabla implements TableModelListener {
     public Long totalSueldoImponible(){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
+            if (this.matrix[i][0] == -1L){
+                suma += 0;
+                continue;
+            }
             suma += this.matrix[i][0];
         }
         return suma;
@@ -75,6 +79,10 @@ public class Tabla implements TableModelListener {
     public Long totalHonorarios(){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
+            if (this.matrix[i][2] == -1L){
+                suma += 0;
+                continue;
+            }
             suma += this.matrix[i][2];
         }
         return suma;
@@ -83,6 +91,10 @@ public class Tabla implements TableModelListener {
     public Long totalImpuestos() {
         long suma = 0L;
         for (int i = 0; i < 12; i++){
+            if (this.matrix[i][1] == -1L || this.matrix[i][3] == -1L){
+                suma += 0;
+                continue;
+            }
             suma += this.matrix[i][1] + this.matrix[i][3];
         }
         return suma;
@@ -182,7 +194,7 @@ public class Tabla implements TableModelListener {
         int countSueldo = 0;
 
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][0] == 0) {
+            if (this.matrix[i][0] == -1L ||this.matrix[i][0] == 0) {
                 countSueldo++;
             }
         }
@@ -193,7 +205,7 @@ public class Tabla implements TableModelListener {
         int countHonorario = 0;
 
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][2] == 0L) {
+            if (this.matrix[i][2] == -1L || this.matrix[i][2] == 0L) {
                 countHonorario++;
             }
         }
