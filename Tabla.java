@@ -89,8 +89,13 @@ public class Tabla implements TableModelListener {
     }
 
     public void setImpuestoHonorario(){
+        long honorario;
         for (int i = 0 ; i < 12 ; i++){
-            int honorario = Integer.parseInt(String.valueOf(table.getValueAt(i,3)));
+            if (isNumeric(this.table.getValueAt(i, 3))){
+                honorario = Long.parseLong(String.valueOf(table.getValueAt(i,3)));
+            } else {
+                honorario = 0L;
+            }
             double num = honorario * 0.1225;
             Long x = Math.round(num);
             table.getModel().setValueAt(x,i,4);
