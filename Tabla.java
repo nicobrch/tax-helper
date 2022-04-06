@@ -150,6 +150,7 @@ public class Tabla implements TableModelListener {
     }
 
     public Double PagoDevolucion() {
+        setImpuestoHonorario();
         Double impuestoTabla = ImpuestoGlobalComplementario();
         Long totalImpuestos = totalImpuestos();
         return impuestoTabla - totalImpuestos;
@@ -193,6 +194,17 @@ public class Tabla implements TableModelListener {
             }
         }
         return false;
+    }
+
+    public boolean isMatrixFull(){
+        for (int i = 0; i < 12; i++){
+            for (int j = 0; j < 4; j++){
+                if (this.matrix[i][j] == -1L){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public boolean checkMatrixProyeccion() {

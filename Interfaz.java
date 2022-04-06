@@ -125,12 +125,12 @@ public class Interfaz extends JFrame implements ActionListener {
         botonEjecutar.addActionListener(this);
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
-            tab.setImpuestoHonorario();
+
             tab.parseMatrixValues();
 
-            Long[][] matrix = tab.getMatrix();
-
             if (tab.isEmptySandwich() ) {
+                MensajeEmergente();
+            } else if (!tab.isMatrixFull()){
                 MensajeEmergente();
             } else {
                 tab.PagoDevolucion();
