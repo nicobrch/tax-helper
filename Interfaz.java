@@ -129,6 +129,7 @@ public class Interfaz extends JFrame implements ActionListener {
         botonEjecutar.addActionListener(e -> {
 
             tab.parseMatrixValues();
+            tab.setImpuestoHonorario();
 
             if (tab.isEmptySandwich() ) {
                 MensajeEmergente();
@@ -180,6 +181,12 @@ public class Interfaz extends JFrame implements ActionListener {
                 Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
                 hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto, le corresponde una paga aproximada """
                 + " de " + Math.round( (-1)*num ) + " pesos."
+            );
+        } else {
+            detalles.setText(
+                    """
+                    Vaya a trabajar
+                    """
             );
         }
         detalles.setVisible(true);

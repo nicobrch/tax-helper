@@ -169,7 +169,7 @@ public class Tabla implements TableModelListener {
     }
 
     public int checkLastFullRow(){
-        for (int i = 11; i > 0; i--){
+        for (int i = 11; i >= 0; i--){
             if (this.matrix[i][0] != -1L && this.matrix[i][1] != -1L && this.matrix[i][2] != -1L){
                 return i;
             }
@@ -227,7 +227,7 @@ public class Tabla implements TableModelListener {
         int countSueldo = 0;
 
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][0] == -1L ||this.matrix[i][0] == 0) {
+            if (this.matrix[i][0] == -1L) {
                 countSueldo++;
             }
         }
@@ -238,7 +238,7 @@ public class Tabla implements TableModelListener {
         int countHonorario = 0;
 
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][2] == -1L || this.matrix[i][2] == 0L) {
+            if (this.matrix[i][2] == -1L) {
                 countHonorario++;
             }
         }
@@ -246,6 +246,7 @@ public class Tabla implements TableModelListener {
     }
 
     public void Proyeccion() {
+        System.out.println(cantidadSueldo());
         Long promedioSueldo = totalSueldoImponible() / cantidadSueldo();
         Long promedioImpuestosSueldo = totalImpuestoSueldo() / cantidadSueldo();
         Long promedioHonorario;
