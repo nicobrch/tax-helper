@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="tax-helper">
+    <output-path>$PROJECT_DIR$/out/artifacts/tax_helper</output-path>
+    <root id="archive" name="tax-helper.jar">
+      <element id="archive" name="tax_helper.jar">
+        <element id="module-output" name="tax-helper" />
+      </element>
+    </root>
+  </artifact>
+</component>
