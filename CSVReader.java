@@ -27,20 +27,12 @@ public class CSVReader {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("e");
             e.printStackTrace();
         }
     }
 
     public Double[][] getMatrix() {
         return this.TablaRango;
-    }
-
-    public void imprimirMatriz() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.print(this.TablaRango[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
 }

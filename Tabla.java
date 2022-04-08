@@ -2,32 +2,34 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Tabla implements TableModelListener {
 
-    private JTable table;
-    private Random rand;
-    private CSVReader reader = new CSVReader();
-    private Long[][] matrix = new Long[12][4]; //Matriz de valores (sin contar la columna de meses).
+    private final JTable table;
+    private final Random rand;
+    private final CSVReader reader = new CSVReader();
+    private final Long[][] matrix = new Long[12][4]; //Matriz de valores (sin contar la columna de meses ni imp honorario).
 
     public Tabla(){
         rand = new Random();
         // Inicializamos la informacion de las celdas
         String[] nombreColumnas = {"Mes", "Sueldo Imponible", "Impuestos Retenidos", "Honorarios Brutos", "Impuestos Retenidos"};
         Object[][] datos = {
-                {"Enero", "", "", "", ""},
-                {"Febrero", "", "", "", ""},
-                {"Marzo", "", "", "", ""},
-                {"Abril", "", "", "", ""},
-                {"Mayo", "", "", "", ""},
-                {"Junio", "", "", "", ""},
-                {"Julio", "", "", "", ""},
-                {"Agosto", "", "", "", ""},
-                {"Septiembre", "", "", "", ""},
-                {"Octubre", "", "", "", ""},
-                {"Noviembre", "", "", "", ""},
-                {"Diciembre", "", "", "", ""}
+                {"Enero", "0", "0", "0", "0"},
+                {"Febrero", "0", "0", "0", "0"},
+                {"Marzo", "0", "0", "0", "0"},
+                {"Abril", "0", "0", "0", "0"},
+                {"Mayo", "0", "0", "0", "0"},
+                {"Junio", "0", "0", "0", "0"},
+                {"Julio", "0", "0", "0", "0"},
+                {"Agosto", "0", "0", "0", "0"},
+                {"Septiembre", "0", "0", "0", "0"},
+                {"Octubre", "0", "0", "0", "0"},
+                {"Noviembre", "0", "0", "0", "0"},
+                {"Diciembre", "0", "0", "0", "0"}
         };
 
         //Hacemos que la primera columna (mes) no se pueda editar
@@ -47,13 +49,18 @@ public class Tabla implements TableModelListener {
 
 
         //Dimensiones
-        table.setRowHeight(30);
+        table.setRowHeight(48);
         TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(0).setPreferredWidth(150);
         for (int i = 1; i < 5; i++){
-            columnModel.getColumn(i).setPreferredWidth(200);
+            columnModel.getColumn(i).setPreferredWidth(275);
         }
 
+        //Letra
+        Font fontH = new Font("SansSerif", Font.BOLD, 20);
+        Font fontT = new Font("SansSerif", Font.PLAIN, 18);
+        table.getTableHeader().setFont(fontH);
+        table.setFont(fontT);
 
         //Evitar edicion
         table.getTableHeader().setReorderingAllowed(false);
@@ -61,13 +68,156 @@ public class Tabla implements TableModelListener {
         table.getModel().addTableModelListener(this);
     }
 
+    private boolean isNumeric(Object obj) {
+        if (obj == null) return false;
+        try {
+            Long.parseLong(String.valueOf(obj));
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    private boolean isNegative(Object obj){
+        if (isNumeric(obj)){
+            return (Double.parseDouble(String.valueOf(obj)) < 0);
+        }
+        return false;
+    }
+
+    public void limpiarTabla(){
+        for (int i = 0; i < 12; i++){
+            for (int j = 1; j < 5; j++){
+                this.table.setValueAt("0", i, j);
+            }
+        }
+    }
+
+    public void parseMatrixValues(){
+        for (int i = 0; i < 12; i++){
+            for (int j = 0; j < 4; j++){
+                this.matrix[i][j] = (Long.parseLong(String.valueOf(this.table.getValueAt(i,j+1))));
+            }
+        }
+    }
+
+    public void Proyeccion() {
+        // Conteos necesarios
+        int cantSueldo = cantidadSueldo();
+        int cantHonorario = cantidadHonorario();
+        Long totalSueldoImpo = totalSueldoImponible();
+        Long totalImpuSueldo = totalImpuestoSueldo();
+        Long totalHon = totalHonorarios();
+
+        //Variables
+        Long promedioSueldo = 0L;
+        Long promedioImpuestosSueldo = 0L;
+        Long promedioHonorario = 0L;
+
+        //Evitamos divisiones por 0
+        if (cantSueldo > 0){
+            promedioSueldo = totalSueldoImpo / cantSueldo;
+        }
+        if (cantSueldo > 0){
+            promedioImpuestosSueldo = totalImpuSueldo / cantSueldo;
+        }
+        if(cantHonorario > 0) {
+            promedioHonorario = totalHon / cantHonorario;
+        }
+
+        //Obtenemos ultima fila con sueldo u honorario
+        int inicio = checkLastFullRow();
+
+        //Remplazamos los datos desde la ultima fila encontrada para abajo
+        for (int i = inicio ; i < 12 ; i++){
+            this.table.setValueAt(promedioSueldo,i,1);
+            this.table.setValueAt(promedioImpuestosSueldo,i,2);
+            this.table.setValueAt(promedioHonorario,i,3);
+        }
+    }
+
+    public void setRandomValuesOnTable(String modo){
+        switch (modo) {
+            case "R" -> {
+                for (int i = 0; i < 4; i++) {
+                    for (int j = 1; j < 4; j++) {
+                        Long v = rand.nextLong(9999999);
+                        this.table.setValueAt(v, i, j);
+                    }
+                }
+                for (int i = 4; i < 12; i++) {
+                    this.table.setValueAt(0, i, 1);
+                    this.table.setValueAt(0, i, 2);
+                    this.table.setValueAt(0, i, 3);
+                }
+            }
+            case "P" -> {
+                for (int i = 0; i < 4; i++) {
+                    this.table.setValueAt(10000000, i, 1);
+                    this.table.setValueAt(1000, i, 2);
+                    this.table.setValueAt(10000000, i, 3);
+                }
+                for (int i = 4; i < 12; i++) {
+                    this.table.setValueAt(0, i, 1);
+                    this.table.setValueAt(0, i, 2);
+                    this.table.setValueAt(0, i, 3);
+                }
+            }
+            case "D" -> {
+                for (int i = 0; i < 6; i++) {
+                    this.table.setValueAt(1000000, i, 1);
+                    this.table.setValueAt(10000, i, 2);
+                    this.table.setValueAt(1000000, i, 3);
+                }
+                for (int i = 6; i < 12; i++) {
+                    this.table.setValueAt(0, i, 1);
+                    this.table.setValueAt(0, i, 2);
+                    this.table.setValueAt(0, i, 3);
+                }
+            }
+        }
+    }
+
+    public int checkLastFullRow(){
+        for (int i = 11; i >= 0; i--){
+            if ((this.matrix[i][0] > 0 && this.matrix[i][1] > 0) || this.matrix[i][2] > 0){
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public boolean isImpuestoMayorQueSueldo() {
+        for (int i = 0; i < 12; i++) {
+            if (this.matrix[i][0] < this.matrix[i][1]){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isImpuestoCeroConSueldo(){
+        for (int i = 0; i < 12; i++) {
+            if (this.matrix[i][0] != 0 && this.matrix[i][1] == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setImpuestoHonorario(){
+        long honorario;
+        for (int i = 0 ; i < 12 ; i++){
+            honorario = Long.parseLong(String.valueOf(table.getValueAt(i,3)));
+            double num = honorario * 0.1225;
+            Long x = Math.round(num);
+            table.getModel().setValueAt(x,i,4);
+        }
+    }
+
     public Long totalSueldoImponible(){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
-            if (this.matrix[i][0] == -1L){
-                suma += 0;
-                continue;
-            }
             suma += this.matrix[i][0];
         }
         return suma;
@@ -76,10 +226,6 @@ public class Tabla implements TableModelListener {
     public Long totalHonorarios(){
         Long suma = 0L;
         for (int i = 0; i < 12; i++){
-            if (this.matrix[i][2] == -1L){
-                suma += 0;
-                continue;
-            }
             suma += this.matrix[i][2];
         }
         return suma;
@@ -88,10 +234,6 @@ public class Tabla implements TableModelListener {
     public Long totalImpuestos() {
         long suma = 0L;
         for (int i = 0; i < 12; i++){
-            if (this.matrix[i][1] == -1L || this.matrix[i][3] == -1L){
-                suma += 0;
-                continue;
-            }
             suma += this.matrix[i][1] + this.matrix[i][3];
         }
         return suma;
@@ -100,27 +242,9 @@ public class Tabla implements TableModelListener {
     public Long totalImpuestoSueldo(){
         Long suma = 0L;
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][1] == -1L){
-                suma += 0;
-                continue;
-            }
             suma += matrix[i][1];
         }
         return suma;
-    }
-
-    public void setImpuestoHonorario(){
-        long honorario;
-        for (int i = 0 ; i < 12 ; i++){
-            if (isNumeric(this.table.getValueAt(i, 3))){
-                honorario = Long.parseLong(String.valueOf(table.getValueAt(i,3)));
-            } else {
-                honorario = 0L;
-            }
-            double num = honorario * 0.1225;
-            Long x = Math.round(num);
-            table.getModel().setValueAt(x,i,4);
-        }
     }
 
     public Long gastosPresuntos(Long totalHonorarios){
@@ -156,78 +280,11 @@ public class Tabla implements TableModelListener {
         return impuestoTabla - totalImpuestos;
     }
 
-    public void parseMatrixValues(){
-        for (int i = 0; i < 12; i++){
-            for (int j = 0; j < 4; j++){
-                if (!isEmpty(this.table.getValueAt(i, j+1))){
-                    this.matrix[i][j] = (Long.parseLong(String.valueOf(this.table.getValueAt(i,j+1))));
-                } else {
-                    this.matrix[i][j] = -1L;
-                }
-            }
-        }
-    }
-
-    public int checkLastFullRow(){
-        for (int i = 11; i >= 0; i--){
-            if (this.matrix[i][0] != -1L && this.matrix[i][1] != -1L && this.matrix[i][2] != -1L){
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    public boolean isEmptySandwich() {
-        for (int i = 0; i < 11; i++) {
-            if (this.matrix[i][0] == -1L && this.matrix[i+1][0] != -1L) {
-                return true;
-            } else if(this.matrix[i][1] == -1L && this.matrix[i+1][1] != -1L) {
-                return true;
-            } else if(this.matrix[i][2] == -1L && this.matrix[i+1][2] != -1L) {
-                return true;
-            } else if((this.matrix[i][0] == -1L && this.matrix[i][1] != -1L) || (this.matrix[i][0] == -1L && this.matrix[i][2] != -1L)) {
-                return true;
-            } else if((this.matrix[i][1] == -1L && this.matrix[i][0] != -1L) || (this.matrix[i][1] == -1L && this.matrix[i][2] != -1L)) {
-                return true;
-            } else if((this.matrix[i][2] == -1L && this.matrix[i][0] != -1L) || (this.matrix[i][2] == -1L && this.matrix[i][1] != -1L)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isMatrixFull(){
-        for (int i = 0; i < 12; i++){
-            for (int j = 0; j < 4; j++){
-                if (this.matrix[i][j] == -1L){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean isFirstRowEmpty(){
-        return !isNumeric(this.table.getValueAt(0, 1)) && !isNumeric(this.table.getValueAt(0, 2)) && !isNumeric(this.table.getValueAt(0, 3));
-    }
-
-    public boolean checkMatrixProyeccion() {
-        for (int i = 0; i < 12; i++) {
-            if ( (this.matrix[i][0] == 0 && this.matrix[i][1] != 0) ) {
-                return true;
-            }
-            if ( (this.matrix[i][0] != 0 && this.matrix[i][1] == 0) ) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Integer cantidadSueldo() {
         int countSueldo = 0;
 
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][0] == -1L) {
+            if (this.matrix[i][0] == 0 || this.matrix[i][0] == 0L) {
                 countSueldo++;
             }
         }
@@ -238,92 +295,11 @@ public class Tabla implements TableModelListener {
         int countHonorario = 0;
 
         for (int i = 0 ; i < 12 ; i++){
-            if (this.matrix[i][2] == -1L) {
+            if (this.matrix[i][2] == 0 || this.matrix[i][2] == 0L) {
                 countHonorario++;
             }
         }
         return  12 - countHonorario;
-    }
-
-    public void Proyeccion() {
-        System.out.println(cantidadSueldo());
-        Long promedioSueldo = totalSueldoImponible() / cantidadSueldo();
-        Long promedioImpuestosSueldo = totalImpuestoSueldo() / cantidadSueldo();
-        Long promedioHonorario;
-
-        if(cantidadHonorario() == 0) {
-            promedioHonorario = 0L;
-        } else {
-            promedioHonorario = totalHonorarios() / cantidadHonorario();
-        }
-
-        int inicio = checkLastFullRow();
-
-        for (int i = inicio ; i < 12 ; i++){
-            if (this.matrix[i][0] == -1L){
-                this.table.setValueAt(promedioSueldo,i,1);
-            }
-            if (this.matrix[i][1] == -1L){
-                this.table.setValueAt(promedioImpuestosSueldo,i,2);
-            }
-            if (this.matrix[i][2] == -1L){
-                this.table.setValueAt(promedioHonorario,i,3);
-            }
-        }
-    }
-
-    public void imprimirMatriz(){
-        for (int i = 0; i < 12; i++){
-            System.out.println(this.matrix[i][0] + " " + this.matrix[i][1] + " " + this.matrix[i][2] + " " + this.matrix[i][3]);
-        }
-    }
-
-    public Long[][] getMatrix(){
-        return this.matrix;
-    }
-
-    public void setRandomValuesOnTable(String modo){
-        if (modo.equals("Random")){
-            for (int i = 0; i < 4; i++){
-                for (int j = 1; j < 4; j++){
-                    Long v = rand.nextLong(9999999);
-                    this.table.setValueAt(v, i, j);
-                }
-            }
-        } else if (modo.equals("Paga Impuestos")){
-            for (int i = 0; i < 4; i++) {
-                this.table.setValueAt(10000000,i,1);
-                this.table.setValueAt(1000,i,2);
-                this.table.setValueAt(10000000,i,3);
-            }
-        } else {
-            for (int i = 0; i < 6; i++) {
-                this.table.setValueAt(1000000,i,1);
-                this.table.setValueAt(10000,i,2);
-                this.table.setValueAt(1000000,i,3);
-            }
-        }
-    }
-
-    private boolean isEmpty(Object obj) {
-        return obj == "";
-    }
-
-    private boolean isNumeric(Object obj) {
-        if (obj == null) return false;
-        try {
-            Long.parseLong(String.valueOf(obj));
-            return true;
-        } catch (NumberFormatException e){
-            return false;
-        }
-    }
-
-    private boolean isNegative(Object obj){
-        if (isNumeric(obj)){
-            return (Double.parseDouble(String.valueOf(obj)) < 0);
-        }
-        return false;
     }
 
     @Override

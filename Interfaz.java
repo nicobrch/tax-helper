@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Interfaz extends JFrame implements ActionListener {
 
     private Tabla tab;
-    private JTable table;
-    private JScrollPane scrollPaneTable;
     private JButton botonOk;
 
     public Interfaz() {
@@ -27,28 +27,34 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelInicial() {
         JPanel panel1 = new JPanel();
         this.getContentPane().add(panel1);
-        setSize(960,480); // Mensaje Completo y Boton Abajo //
+        setSize(1280,720); // Mensaje Completo y Boton Abajo //
 
         JTextArea descripcion = new JTextArea();
-        Font font = new Font("Arial", Font.PLAIN, 20);
-        descripcion.setSize(900,400);
+        Font font = new Font("SansSerif", Font.PLAIN, 24);
+        descripcion.setSize(1200,600);
         descripcion.setEditable(false);
         descripcion.setLineWrap(true);
         descripcion.setFont(font);
         descripcion.setText(
         """
         Bienvenido al programa Tax-Help.
-        Este programa tiene como funcionalidad indicarle en base a unos ciertos datos que debera ingresar a continuacion, si le corresponde pago o devolucion de impuestos.
+        Este programa tiene como funcionalidad indicarle en base a unos ciertos datos que debera ingresar a continuacion,
+        si le corresponde pago o devolucion de impuestos, de acuerdo a la tabla de impuesto global unico del servicio
+        de impuestos internos de Chile en el anio 2021.
+        
         Favor, seguir las siguientes indicaciones:
-        1) En caso de que no se encuentre trabajando, rellenar con '0'.
-        2) Si no conoce toda la informacion, favor completar solo con la informacion oficial que tenga en su conocimiento.
-        3) Luego de tener todo, seleccione el boton 'Ejecutar Programa'.
+        1) En caso de que no se encuentre trabajando, deje los datos en 0.
+        2) Puesto que hay impuestos voluntarios, debera ingresar los impuestos correspondiente al sueldo de forma manual.
+        3) Si desea realizar una proyeccion, rellene las filas hasta el ultimo mes que desee, ya sea sueldo e impuesto
+        correspondiente al sueldo, honorario o todo lo anterior y presione 'Proyeccion'.
+        3) Una vez listo, presione 'Ejecutar Programa'.
         """
         );
         descripcion.setVisible(true);
         panel1.add(descripcion);
 
         botonOk = new JButton("Ok!");
+        botonOk.setPreferredSize(new Dimension(100, 50));
         panel1.add(botonOk);
 
         ActionListener nextPanel = e -> {
@@ -63,22 +69,22 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelTabla() {
         JPanel panel2 = new JPanel();
         this.getContentPane().add(panel2);
-        setSize(960, 480); // Botones Abajo //
+        setSize(1280, 720); // Botones Abajo //
 
         tab = new Tabla();
-        this.table = tab.getTable();
+        JTable table = tab.getTable();
 
         // Añadimos la tabla al panel
         table.setFillsViewportHeight(true);
         table.setPreferredScrollableViewportSize(table.getPreferredSize());
-        scrollPaneTable = new JScrollPane(table);
+        JScrollPane scrollPaneTable = new JScrollPane(table);
         scrollPaneTable.setVisible(true);
         panel2.add(scrollPaneTable);
 
         // Botones
 
         JButton botonAtras = new JButton("Atras");
-        botonAtras.setSize(320, 300);
+        botonAtras.setPreferredSize(new Dimension(100, 50));
         botonAtras.addActionListener(e -> {
             remove(panel2);
             panelInicial();
@@ -86,61 +92,83 @@ public class Interfaz extends JFrame implements ActionListener {
         });
         panel2.add(botonAtras);
 
+        panel2.add(Box.createRigidArea(new Dimension(250, 0)));
 
-        panel2.add(Box.createRigidArea(new Dimension(245, 0)));
+        /*
+            BOTONES TEST Y LIMPIAR
+         */
 
-        JButton botonTest = new JButton("Test");
-        botonTest.setSize(320, 300);
-        botonTest.addActionListener(e -> tab.setRandomValuesOnTable("")); //modo = "Random" o "Paga Impuestos", sino se devuelve.
-        panel2.add(botonTest);
+        JButton botonTestR = new JButton("Test R");
+        botonTestR.setPreferredSize(new Dimension(75, 50));
+        botonTestR.addActionListener(e -> {
+            /*
+            Modos para los valores
+            R = Random | P = Paga Impuestos | D = Devolucion
+            */
+            tab.setRandomValuesOnTable("R");
+            tab.setImpuestoHonorario();
+        });
+        panel2.add(botonTestR);
+
+        JButton botonTestP = new JButton("Test P");
+        botonTestP.setPreferredSize(new Dimension(75, 50));
+        botonTestP.addActionListener(e -> {
+            /*
+            Modos para los valores
+            R = Random | P = Paga Impuestos | D = Devolucion
+            */
+            tab.setRandomValuesOnTable("P");
+            tab.setImpuestoHonorario();
+        });
+        panel2.add(botonTestP);
+
+        JButton botonTestD = new JButton("Test D");
+        botonTestD.setPreferredSize(new Dimension(75, 50));
+        botonTestD.addActionListener(e -> {
+            /*
+            Modos para los valores
+            R = Random | P = Paga Impuestos | D = Devolucion
+            */
+            tab.setRandomValuesOnTable("D");
+            tab.setImpuestoHonorario();
+        });
+        panel2.add(botonTestD);
+
+        /*
+            LIMPIAR PROYECCION EJECUTAR
+         */
+
+        panel2.add(Box.createRigidArea(new Dimension(250, 0)));
 
         JButton botonLimpiarTabla = new JButton("Limpiar");
-        botonLimpiarTabla.setSize(320, 300);
-        botonLimpiarTabla.addActionListener(this);
-        botonLimpiarTabla.setActionCommand("Limpiar");
+        botonLimpiarTabla.setPreferredSize(new Dimension(100, 50));
+        botonLimpiarTabla.addActionListener(e -> tab.limpiarTabla());
         panel2.add(botonLimpiarTabla);
 
-        panel2.add(Box.createRigidArea(new Dimension(245, 0)));
-
+        panel2.add(Box.createRigidArea(new Dimension(50, 0)));
 
         JButton botonProyeccion = new JButton("Proyeccion");
-        botonProyeccion.setSize(320, 300);
+        botonProyeccion.setPreferredSize(new Dimension(100, 50));
         botonProyeccion.addActionListener(e -> {
             tab.parseMatrixValues();
 
-            if (tab.isFirstRowEmpty()) {
-                MensajeEmergente();
-            } else if(tab.checkMatrixProyeccion()){
-                MensajeEmergente();
-            } else if(tab.isEmptySandwich()){
-                MensajeEmergente();
-            } else {
-                tab.Proyeccion();
-                tab.setImpuestoHonorario();
-            }
+            tab.Proyeccion();
+            tab.setImpuestoHonorario();
         });
         panel2.add(botonProyeccion);
 
 
         JButton botonEjecutar = new JButton("Ejecutar");
-        botonEjecutar.setSize(320, 300);
+        botonEjecutar.setPreferredSize(new Dimension(100, 50));
         botonEjecutar.addActionListener(this);
         panel2.add(botonEjecutar);
         botonEjecutar.addActionListener(e -> {
-
             tab.parseMatrixValues();
-            tab.setImpuestoHonorario();
 
-            if (tab.isEmptySandwich() ) {
-                MensajeEmergente();
-            } else if (!tab.isMatrixFull()){
-                MensajeEmergente();
-            } else {
-                tab.PagoDevolucion();
-                remove(panel2);
-                panelFinal();
-                revalidate();
-            }
+            tab.PagoDevolucion();
+            remove(panel2);
+            panelFinal();
+            revalidate();
 
         });
 
@@ -150,37 +178,40 @@ public class Interfaz extends JFrame implements ActionListener {
     public void panelFinal() {
         JPanel panel3 = new JPanel();
         this.getContentPane().add(panel3);
-        setSize(960, 480); // Solo Texto Completo //
+        setSize(1280, 720); // Solo Texto Completo //
 
         JTextArea detalles = new JTextArea();
-        Font font = new Font("Arial", Font.PLAIN, 20);
+        Font font = new Font("SansSerif", Font.PLAIN, 24);
         detalles.setFont(font);
-        detalles.setSize(900,400);
+        detalles.setSize(1200,600);
         detalles.setEditable(false);
         detalles.setLineWrap(true);
-
         Double num = tab.PagoDevolucion();
-        if(num > 0) { // Paga de Impuestos
+        Long numRedondeado = Math.round(num);
+        if(num > 0) {               // Paga de Impuestos
             detalles.setText(
                 """
                 TAX-HELPER.
                 
                 Te corresponde PAGO de impuestos.
                 
-                Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
-                hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto, le corresponde una paga aproximada """
-                + " de " + Math.round( num ) + " pesos."
+                Segun la tabla de calculo del Impuesto Global del anio 2021, y los datos de la tabla rellenados
+                hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto,
+                le corresponde una paga aproximada"""
+                + " de $" + NumberFormat.getNumberInstance(Locale.US).format(numRedondeado) + " pesos."
             );
-        } else if (num < 0) { // Devolucion
+        } else if (num < 0) {       // Devolucion
+            numRedondeado = numRedondeado * -1;
             detalles.setText(
                 """
                 TAX-HELPER.
                                         
                 Te corresponde DEVOLUCION de impuestos.
                                         
-                Segun la tabla de calculo del Impuesto Global del año 2021, y los datos de la tabla rellenados
-                hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto, le corresponde una paga aproximada """
-                + " de " + Math.round( (-1)*num ) + " pesos."
+                Segun la tabla de calculo del Impuesto Global del anio 2021, y los datos de la tabla rellenados
+                hasta el mes de diciembre, se han realizado los calculos correspondientes, y por lo tanto,
+                le corresponde una paga aproximada"""
+                + " de $" + NumberFormat.getNumberInstance(Locale.US).format(numRedondeado) + " pesos."
             );
         } else {
             detalles.setText(
@@ -193,6 +224,7 @@ public class Interfaz extends JFrame implements ActionListener {
         panel3.add(detalles);
 
         botonOk = new JButton("Calcular nuevamente");
+        botonOk.setPreferredSize(new Dimension(200, 50));
         panel3.add(botonOk);
 
         ActionListener nextPanel = e -> {
@@ -211,14 +243,6 @@ public class Interfaz extends JFrame implements ActionListener {
     // Funcion Boton Limpiar
     @Override
     public void actionPerformed(ActionEvent e) {
-        String action = e.getActionCommand();
-        if (action.equals("Limpiar")) {
-            for (int i = 1; i < 5; i++) {
-                for (int j = 0; j < 12; j++) {
-                    table.getModel().setValueAt("", j, i);
-                }
-            }
-        }
     }
 
 }
