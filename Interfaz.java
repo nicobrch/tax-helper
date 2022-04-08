@@ -152,8 +152,14 @@ public class Interfaz extends JFrame implements ActionListener {
         botonProyeccion.addActionListener(e -> {
             tab.parseMatrixValues();
 
-            tab.Proyeccion();
-            tab.setImpuestoHonorario();
+            if (!tab.isImpuestoMayorQueSueldo()){
+                MensajeImpuestoMayorQueSueldo();
+            } else if (!tab.isImpuestoCeroConSueldo()){
+                MensajeImpuestoCeroConSueldo();
+            } else {
+                tab.Proyeccion();
+                tab.setImpuestoHonorario();
+            }
         });
         panel2.add(botonProyeccion);
 
@@ -165,11 +171,16 @@ public class Interfaz extends JFrame implements ActionListener {
         botonEjecutar.addActionListener(e -> {
             tab.parseMatrixValues();
 
-            tab.PagoDevolucion();
+            if (!tab.isImpuestoMayorQueSueldo()){
+                MensajeImpuestoMayorQueSueldo();
+            } else if (!tab.isImpuestoCeroConSueldo()){
+                MensajeImpuestoCeroConSueldo();
+            } else {
+                tab.PagoDevolucion();
             remove(panel2);
             panelFinal();
             revalidate();
-
+            }
         });
 
     }
@@ -239,6 +250,17 @@ public class Interfaz extends JFrame implements ActionListener {
         JFrame jFrame = new JFrame();
         JOptionPane.showMessageDialog(jFrame, "Favor, ingresa los datos correctamente.");
     }
+
+    public void MensajeImpuestoMayorQueSueldo() {
+        JFrame jFrame = new JFrame();
+        JOptionPane.showMessageDialog(jFrame, "No puede tener un impuesto mayor que su sueldo! Revise sus datos.");
+    }
+
+    public void MensajeImpuestoCeroConSueldo() {
+        JFrame jFrame = new JFrame();
+        JOptionPane.showMessageDialog(jFrame, "Si tiene sueldo, por favor ingrese el impuesto correspondiente!");
+    }
+
 
     // Funcion Boton Limpiar
     @Override
