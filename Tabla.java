@@ -247,7 +247,12 @@ public class Tabla implements TableModelListener {
     }
 
     public Long gastosPresuntos(Long totalHonorarios){
-        return Math.round(totalHonorarios * 0.3) ;
+        Double x = totalHonorarios * 0.3;
+        Long y  = Math.round(x);
+        if (y > 9185220){
+            return 9185220;
+        }
+        return y;
     }
 
     public Long rentaAnual() {
