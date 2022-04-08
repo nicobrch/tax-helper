@@ -128,7 +128,7 @@ public class Tabla implements TableModelListener {
         int inicio = checkLastFullRow();
 
         //Remplazamos los datos desde la ultima fila encontrada para abajo
-        for (int i = inicio ; i < 12 ; i++){
+        for (int i = inicio+1; i < 12 ; i++){
             this.table.setValueAt(promedioSueldo,i,1);
             this.table.setValueAt(promedioImpuestosSueldo,i,2);
             this.table.setValueAt(promedioHonorario,i,3);
