@@ -3,7 +3,6 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Tabla implements TableModelListener {
@@ -190,19 +189,19 @@ public class Tabla implements TableModelListener {
     public boolean isImpuestoMayorQueSueldo() {
         for (int i = 0; i < 12; i++) {
             if (this.matrix[i][0] < this.matrix[i][1]){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public boolean isImpuestoCeroConSueldo(){
         for (int i = 0; i < 12; i++) {
             if (this.matrix[i][0] != 0 && this.matrix[i][1] == 0){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public void setImpuestoHonorario(){
