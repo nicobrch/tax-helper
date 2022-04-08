@@ -250,7 +250,7 @@ public class Tabla implements TableModelListener {
         Double x = totalHonorarios * 0.3;
         Long y  = Math.round(x);
         if (y > 9185220){
-            return 9185220;
+            return 9185220L;
         }
         return y;
     }
